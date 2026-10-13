@@ -126,14 +126,14 @@ in die App fließt.
   Download ganzer Suren, fehlerhafte Punkteskala.
 - `Package.swift` wird entfernt (Xcode-Projekt ist maßgeblich) oder korrigiert.
 
-## Offene Entscheidungen
+## Entscheidungen
 
-1. **Privat oder kommerziell (App Store, ggf. kostenpflichtig)?** → bestimmt,
-   ob Variante B überhaupt infrage kommt.
-2. **Welche Übersetzungen** zum Start?
-3. **Minimale iOS-Version** (Vorschlag: iOS 17; WhisperKit läuft ab iOS 16,
-   Neural Engine ab iPhone XS sinnvoll).
-4. **App-Größe**: tiny (~40–75 MB) vs. base (~75–150 MB) – entscheidet Phase 0.
+| Datum | Entscheidung |
+|---|---|
+| 13.10.2026 | Vorerst privat, später ggf. kommerziell → nur kommerziell nutzbare Lizenzen. **Variante A (Tarteel Whisper, Apache 2.0)**; Variante B (NPL, nicht kommerziell) entfällt. |
+| 13.10.2026 | Übersetzungen zum Start: **Deutsch, Türkisch, Englisch** |
+| 13.10.2026 | Mindestversion **iOS 17** |
+| offen | Modellgröße tiny vs. base → entscheidet Phase 0 (`Tools/phase0/`) |
 
 ## Risiken
 

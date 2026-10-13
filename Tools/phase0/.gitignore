@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+.pytest_cache/
+# heruntergeladene Daten (Tanzil/EveryAyah – nicht ins Repo)
+data/
+# Ergebnisse lokal; report.md bei Bedarf manuell committen
+results/
+# eigene Aufnahmen bleiben privat, nur die Liste wird versioniert
+clips/own/*
+!clips/own/manifest.csv
