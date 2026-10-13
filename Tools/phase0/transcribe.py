@@ -53,6 +53,7 @@ class WhisperRunner:
             except (ValueError, KeyError, AttributeError, TypeError):
                 # ältere Feintuning-Konfigurationen kennen language/task nicht
                 self._lang_kwargs = {}
+                print("  ℹ Modell kennt language/task nicht – Transkription ohne Sprachvorgabe")
                 ids = self.model.generate(features, max_new_tokens=220)
         return self.processor.batch_decode(ids, skip_special_tokens=True)[0].strip()
 
