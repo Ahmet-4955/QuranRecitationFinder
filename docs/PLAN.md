@@ -123,10 +123,26 @@ in die App fließt.
 | Phase | Stand (13.10.2026) |
 |---|---|
 | 0 | Werkzeuge fertig (`Tools/phase0/`), Verssuche getestet. **Messung mit echten Modellen + eigenen Aufnahmen steht aus (Mac).** |
-| 1 | Vorbereitet: Ressourcen-Skript (`Tools/data/`), Swift-Datenschicht (`QuranRecitationFinder/Core/`), Abnahmetests. **Daten erzeugen + Tests in Xcode ausführen steht aus (Mac).** |
-| 2 | Vorbereitet: Swift-Verssuche (`Core/Matching/`), Schwelle 0,6 (vorläufig) + Gleichstand-Erkennung, Abnahmetests, Vergleichsfälle-Export. Logik in Python-Nachbau mit Prototyp abgeglichen (154/154 identisch). **Kompilieren + Tests in Xcode steht aus (Mac); Schwelle nach Phase 0 kalibrieren.** |
+| 1 | Fertig (Kern): Ressourcen-Skript, Swift-Datenschicht **kompiliert + Tests grün (Linux/Docker, mit echtem Tanzil-Text)**. **Echte Daten erzeugen + Xcode-Lauf steht aus (Mac).** |
+| 2 | Fertig (Kern): Swift-Verssuche **kompiliert mit Swift 6.2 (Linux/Docker), 0 Warnungen im Swift-6-Modus**, Swift-Tests grün inkl. 68 Vergleichsfälle Swift = Python; Release-Messung: Suche 4 ms Median / 17 ms max., Index 0,11 s. Eröffnungsformeln (Isti'adha/Basmala) werden vor der Suche entfernt. **Xcode-Lauf auf dem Mac steht aus.** |
 | 3 | Vorbereitet: Umwandlungsskript (`Tools/model/convert_model.py`, ergänzt `alignment_heads`, Tokenizer offline), `WhisperKitRecognizer` (WhisperKit 1.1.1, Arabisch fest, Modell vorladen), automatische Auswahl Modell/Platzhalter, Statusanzeige, Zeitmessung je Erkennung, Tests. **Umwandeln + in Xcode einbinden + Gerätetest steht aus (Mac), Anleitung: `Tools/model/README.md`. Modellgröße nach Phase 0.** |
 | 4 | Vorbereitet: neue Oberfläche (Erkennen / Verlauf / Einstellungen / Quellen & Lizenzen), Aufnahme über AVAudioEngine direkt in 16 kHz, Spracherkennung hinter Protokoll `RecitationRecognizer` (Platzhalter bis Phase 3), Texteingabe zum Testen, Ablauftests mit simuliertem Mikrofon. Alter Code entfernt. **Kompilieren + Gerätetest steht aus (Mac), Anleitung: `docs/TESTANLEITUNG.md`.** |
+| 5 | Vorbereitet: `recognition-config.json` (Schwelle, Ausgabe, Mindestwortzahl), Testprotokoll mit „Stimmt / Stimmt nicht“ + Export, `Tools/phase5/calibrate.py` (Phase-0-Ergebnisse + App-Export → Schwelle). **Messdaten fehlen noch.** |
+| 6 | Optional, nicht begonnen – siehe unten. Für eine lauffähige App nicht nötig. |
+| CI | `.github/workflows/ci.yml`: bei jedem Push Python-Tests + Swift-Kern kompilieren und testen (Swift 6.2). |
+
+Kompletter Weg zur laufenden App: [`docs/INBETRIEBNAHME.md`](INBETRIEBNAHME.md).
+
+### Phase 6 – mögliche Erweiterungen (erst nach erfolgreichem Gerätetest)
+
+| Erweiterung | Nutzen | Aufwand | Hinweis |
+|---|---|---|---|
+| Erkennung schon während der Aufnahme | Ergebnis nach 3–5 s statt nach Stopp | mittel | WhisperKit-Streaming |
+| Automatischer Stopp bei Stille | weniger Tippen | gering | Pegel aus der Aufnahme reicht |
+| Weiterlesen ab erkanntem Vers | Mitlesen der Rezitation | gering | Daten liegen schon vor |
+| Referenzrezitation abspielen | Vergleich hören | mittel | Audio-Lizenz klären, braucht Internet |
+| Tafsir / weitere Sprachen | mehr Inhalt | gering je Sprache | QuranEnc bietet viele Übersetzungen |
+| Kommerzielle Veröffentlichung | App Store | mittel | Lizenzen prüfen (Tanzil, QuranEnc, Modell) |
 
 ## Umgang mit dem bestehenden Code
 

@@ -10,6 +10,7 @@ Aufruf (nach Tools/data/build_resources.py):   python export_swift_fixtures.py
 
 from __future__ import annotations
 
+import argparse
 import random
 import sys
 from pathlib import Path
@@ -35,9 +36,12 @@ def swift_string(text: str) -> str:
 
 
 def main() -> None:
-    if not CORPUS.exists():
-        sys.exit(f"✗ {CORPUS.relative_to(REPO)} fehlt – erst Tools/data/build_resources.py ausführen.")
-    corpus = QuranCorpus.load(CORPUS, "simple-clean")
+    p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    p.add_argument("--corpus", type=Path, default=CORPUS, help="Korantext (Standard: der in der App gebündelte)")
+    corpus_path = p.parse_args().corpus
+    if not corpus_path.exists():
+        sys.exit(f"✗ {corpus_path} fehlt – erst Tools/data/build_resources.py ausführen.")
+    corpus = QuranCorpus.load(corpus_path, "simple-clean")
     matcher = QuranMatcher(corpus)
     rng = random.Random(2026)
 

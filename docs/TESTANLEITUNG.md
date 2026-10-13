@@ -1,4 +1,4 @@
-# Testanleitung App (Stand Phase 1–4)
+# Testanleitung App (Stand Phase 1–5)
 
 Stand: 14.10.2026
 
@@ -13,6 +13,8 @@ Voraussetzung: `Tools/data/README.md` Schritte 1–3 erledigt (Daten + Vergleich
 | `QuranDataTests.swift` | Phase 1: Korantext, Übersetzungen, Normalisierung, Einstellungen |
 | `VerseMatcherTests.swift` | Phase 2: Verssuche, Gleichstände, fremder Text, Vergleich mit Python |
 | `RecognitionFlowTests.swift` | Phase 4: Ablauf Aufnahme → Erkennung → Verlauf (simuliertes Mikrofon) |
+| `Phase5Tests.swift` | Phase 5: Konfigurationsdatei, Testprotokoll |
+| `AppSettingsTests.swift` | Einstellungen (Sprache, Höchstdauer) |
 | `RecognizerTests.swift` | Phase 3: Modellordner, Auswahl Spracherkennung, Rauchtest mit echtem Modell (nur wenn eingebunden) |
 
 Bei Fehlern: Meldung aus dem Test-Navigator (⌘6) kopieren und im Chat schicken.
@@ -33,5 +35,8 @@ iPhone per Kabel verbinden, als Ziel wählen, **Run** (⌘R).
 | 8 | Mikrofon-Button antippen | Mikrofon-Abfrage; Kreis pulsiert mit Lautstärke, Sekunden zählen |
 | 9 | Nach > 2 s Stopp | ohne Phase 3: Hinweis „Spracherkennung nicht verfügbar (Phase 3)“ – **erwartet**; mit Phase 3: Ergebnis + „Spracherkennung: x,x s“ (Ziel < 3 s) |
 | 10 | Einstellungen → Quellen & Lizenzen | Tanzil + drei Übersetzungen mit Version |
+| 11 | Nach einem Ergebnis „Stimmt nicht“ → `2:255` eingeben | „als falsch vermerkt“ |
+| 12 | Einstellungen → Testprotokoll → Exportieren → Teilen | JSON-Datei per AirDrop auf den Mac |
+| 13 | Text eingeben: `اعوذ بالله من الشيطان الرجيم بسم الله الرحمن الرحيم يس والقران الحكيم` | Erkannt 36:1, Übereinstimmung > 90 % |
 
 Auffälligkeiten (Darstellung, Tempo, Texte) bitte mit Nummer melden.

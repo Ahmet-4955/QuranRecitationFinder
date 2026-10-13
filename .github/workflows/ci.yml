@@ -1,0 +1,52 @@
+# Automatische Prüfung bei jedem Push / Pull Request.
+# - Python: alle Werkzeug-Tests (Verssuche-Prototyp, Daten, Modell-Umwandlung, Kalibrierung)
+# - Swift: plattformunabhängiger App-Kern mit Swift 6.2 kompilieren + Swift-Tests (Linux/Docker)
+# Die SwiftUI-Oberfläche und AVFoundation lassen sich nur in Xcode auf dem Mac prüfen.
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  python:
+    name: Python-Werkzeuge
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install rapidfuzz numpy requests pytest
+      - name: Testdaten (echte Ressourcen oder Ersatz)
+        run: |
+          if [ -f QuranRecitationFinder/Resources/Quran/quran-simple-clean.xml ]; then
+            echo "DATA=$PWD/QuranRecitationFinder/Resources" >> "$GITHUB_ENV"
+          else
+            python Tools/linux-check/make_standin.py "$RUNNER_TEMP/standin" > /dev/null
+            echo "DATA=$RUNNER_TEMP/standin" >> "$GITHUB_ENV"
+          fi
+      - name: Tests
+        run: QURAN_CORPUS="$DATA/Quran/quran-simple-clean.xml" python -m pytest -q Tools/phase0/tests Tools/data/tests Tools/model/tests Tools/phase5/tests
+
+  swift-core:
+    name: Swift-Kern (Swift 6.2, Linux)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install rapidfuzz numpy requests
+      - name: Testdaten (echte Ressourcen oder Ersatz)
+        run: |
+          if [ -f QuranRecitationFinder/Resources/Quran/quran-simple-clean.xml ]; then
+            echo "DATA=$PWD/QuranRecitationFinder/Resources" >> "$GITHUB_ENV"
+          else
+            python Tools/linux-check/make_standin.py "$RUNNER_TEMP/standin" > /dev/null
+            echo "DATA=$RUNNER_TEMP/standin" >> "$GITHUB_ENV"
+          fi
+      - name: Vergleichsfälle Python → Swift erzeugen
+        run: python Tools/phase0/export_swift_fixtures.py --corpus "$DATA/Quran/quran-simple-clean.xml"
+      - name: Kompilieren + Swift-Tests
+        run: Tools/linux-check/run.sh "$DATA" --swift6
