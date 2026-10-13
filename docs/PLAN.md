@@ -118,6 +118,13 @@ Phase 0 ist der wichtigste Schritt: Sie klärt mit echten Zahlen, ob das Modell
 für eigene Aufnahmen (nicht nur Studio-Rezitationen) gut genug ist, bevor Zeit
 in die App fließt.
 
+## Stand der Phasen
+
+| Phase | Stand (13.10.2026) |
+|---|---|
+| 0 | Werkzeuge fertig (`Tools/phase0/`), Verssuche getestet. **Messung mit echten Modellen + eigenen Aufnahmen steht aus (Mac).** |
+| 1 | Vorbereitet: Ressourcen-Skript (`Tools/data/`), Swift-Datenschicht (`QuranRecitationFinder/Core/`), Abnahmetests. **Daten erzeugen + Tests in Xcode ausführen steht aus (Mac).** |
+
 ## Umgang mit dem bestehenden Code
 
 - Neuaufbau mit obiger Struktur.
