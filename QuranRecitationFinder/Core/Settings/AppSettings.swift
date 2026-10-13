@@ -28,12 +28,26 @@ nonisolated enum TranslationLanguage: String, CaseIterable, Identifiable, Sendab
 final class AppSettings: ObservableObject {
     private enum Keys {
         static let language = "settings.translationLanguage"
+        static let maxRecording = "settings.maxRecordingSeconds"
     }
+
+    static let recordingRange = 5...30
+    static let defaultMaxRecordingSeconds = 12
 
     private let defaults: UserDefaults
 
     @Published var translationLanguage: TranslationLanguage {
         didSet { defaults.set(translationLanguage.rawValue, forKey: Keys.language) }
+    }
+
+    /// Aufnahme stoppt spätestens nach dieser Zeit (Whisper verarbeitet max. 30 s am Stück).
+    @Published var maxRecordingSeconds: Int {
+        didSet {
+            let clamped = min(max(maxRecordingSeconds, Self.recordingRange.lowerBound), Self.recordingRange.upperBound)
+            // Zuweisung in didSet löst didSet nicht erneut aus – daher direkt danach speichern
+            if clamped != maxRecordingSeconds { maxRecordingSeconds = clamped }
+            defaults.set(maxRecordingSeconds, forKey: Keys.maxRecording)
+        }
     }
 
     init(defaults: UserDefaults = .standard, locale: Locale = .current) {
@@ -44,5 +58,7 @@ final class AppSettings: ObservableObject {
         } else {
             translationLanguage = .preferred(for: locale)
         }
+        let storedSeconds = defaults.integer(forKey: Keys.maxRecording)
+        maxRecordingSeconds = Self.recordingRange.contains(storedSeconds) ? storedSeconds : Self.defaultMaxRecordingSeconds
     }
 }

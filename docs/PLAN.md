@@ -125,6 +125,7 @@ in die App fließt.
 | 0 | Werkzeuge fertig (`Tools/phase0/`), Verssuche getestet. **Messung mit echten Modellen + eigenen Aufnahmen steht aus (Mac).** |
 | 1 | Vorbereitet: Ressourcen-Skript (`Tools/data/`), Swift-Datenschicht (`QuranRecitationFinder/Core/`), Abnahmetests. **Daten erzeugen + Tests in Xcode ausführen steht aus (Mac).** |
 | 2 | Vorbereitet: Swift-Verssuche (`Core/Matching/`), Schwelle 0,6 (vorläufig) + Gleichstand-Erkennung, Abnahmetests, Vergleichsfälle-Export. Logik in Python-Nachbau mit Prototyp abgeglichen (154/154 identisch). **Kompilieren + Tests in Xcode steht aus (Mac); Schwelle nach Phase 0 kalibrieren.** |
+| 4 | Vorbereitet: neue Oberfläche (Erkennen / Verlauf / Einstellungen / Quellen & Lizenzen), Aufnahme über AVAudioEngine direkt in 16 kHz, Spracherkennung hinter Protokoll `RecitationRecognizer` (Platzhalter bis Phase 3), Texteingabe zum Testen, Ablauftests mit simuliertem Mikrofon. Alter Code entfernt. **Kompilieren + Gerätetest steht aus (Mac), Anleitung: `docs/TESTANLEITUNG.md`.** |
 
 ## Umgang mit dem bestehenden Code
 

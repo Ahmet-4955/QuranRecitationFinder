@@ -25,7 +25,7 @@ nonisolated struct VerseID: Hashable, Comparable, Codable, Sendable, CustomStrin
 }
 
 /// Zusammenhängender Versbereich, z. B. 2:255–2:256.
-nonisolated struct VerseRange: Hashable, Sendable, CustomStringConvertible {
+nonisolated struct VerseRange: Hashable, Codable, Sendable, CustomStringConvertible {
     let start: VerseID
     let end: VerseID
 

@@ -15,8 +15,6 @@
     <key>LSRequiresIPhoneOS</key>
     <true/>
     <key>NSMicrophoneUsageDescription</key>
-    <string>Die App benötigt den Mikrofonzugriff, um Quran-Rezitationen zu erkennen.</string>
-    <key>NSSpeechRecognitionUsageDescription</key>
-    <string>Die App benötigt die Spracherkennung, um Quran-Rezitationen direkt aus der Aufnahme zu identifizieren.</string>
+    <string>Die App nimmt einen kurzen Ausschnitt der Rezitation auf, um den Koranvers zu erkennen. Die Aufnahme bleibt auf dem Gerät.</string>
 </dict>
 </plist>
