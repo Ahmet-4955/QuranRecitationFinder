@@ -1,4 +1,7 @@
 import Foundation
+#if canImport(FoundationXML)
+import FoundationXML  // Linux (Kompilierprüfung im Container)
+#endif
 
 /// Liest die Tanzil-XML-Dateien (Korantext und Metadaten).
 nonisolated enum TanzilParser {

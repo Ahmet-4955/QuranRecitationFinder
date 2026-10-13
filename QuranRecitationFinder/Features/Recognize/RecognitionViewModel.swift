@@ -14,6 +14,8 @@ final class RecognitionViewModel: ObservableObject {
     struct Recognition {
         let outcome: MatchOutcome
         let transcript: String
+        /// Eintrag im Testprotokoll (für „Stimmt / Stimmt nicht“).
+        let recordID: UUID
         /// Dauer der Spracherkennung in Sekunden (nil bei Texteingabe). Ziel Phase 3: < 3 s.
         var transcriptionSeconds: Double? = nil
     }
@@ -24,21 +26,25 @@ final class RecognitionViewModel: ObservableObject {
     @Published private(set) var phase: Phase = .idle
     @Published private(set) var level: Float = 0
     @Published private(set) var elapsed: TimeInterval = 0
+    /// Rückmeldung zum aktuellen Ergebnis.
+    @Published private(set) var verdict: FeedbackRecord.Verdict = .unrated
 
     private let capture: AudioCapturing
     private let recognizer: any RecitationRecognizer
     private let matcher: VerseMatcher
     private let history: HistoryStore
     private let settings: AppSettings
+    private let feedback: FeedbackLog
     private var meterTask: Task<Void, Never>?
 
     init(capture: AudioCapturing, recognizer: any RecitationRecognizer, matcher: VerseMatcher,
-         history: HistoryStore, settings: AppSettings) {
+         history: HistoryStore, settings: AppSettings, feedback: FeedbackLog) {
         self.capture = capture
         self.recognizer = recognizer
         self.matcher = matcher
         self.history = history
         self.settings = settings
+        self.feedback = feedback
     }
 
     var isRecording: Bool {
@@ -145,7 +151,38 @@ final class RecognitionViewModel: ObservableObject {
                              alternatives: matches.dropFirst().map(\.range), transcript: transcript)
             )
         }
-        phase = .finished(Recognition(outcome: outcome, transcript: transcript, transcriptionSeconds: transcriptionSeconds))
+        let record = Self.makeRecord(outcome: outcome, transcript: transcript,
+                                     transcriptionSeconds: transcriptionSeconds, recognizer: recognizer.displayName)
+        feedback.add(record)
+        verdict = .unrated
+        phase = .finished(Recognition(outcome: outcome, transcript: transcript, recordID: record.id,
+                                      transcriptionSeconds: transcriptionSeconds))
+    }
+
+    /// Rückmeldung „Stimmt / Stimmt nicht“ (optional mit richtigem Vers) ins Testprotokoll.
+    func rate(_ verdict: FeedbackRecord.Verdict, correctRef: String? = nil) {
+        guard case .finished(let recognition) = phase else { return }
+        let ref = correctRef?.trimmingCharacters(in: .whitespaces)
+        feedback.setVerdict(verdict, correctRef: (ref?.isEmpty ?? true) ? nil : ref, for: recognition.recordID)
+        self.verdict = verdict
+    }
+
+    nonisolated static func makeRecord(outcome: MatchOutcome, transcript: String,
+                                       transcriptionSeconds: Double?, recognizer: String) -> FeedbackRecord {
+        let (kind, matches): (String, [VerseMatch]) = {
+            switch outcome {
+            case .recognized(let m): return ("recognized", m)
+            case .uncertain(let m): return ("uncertain", m)
+            case .nothing: return ("nothing", [])
+            }
+        }()
+        return FeedbackRecord(
+            id: UUID(), date: Date(), transcript: transcript, outcome: kind,
+            candidates: matches.map { FeedbackRecord.Candidate(ref: $0.range.description, score: $0.score) },
+            wordCount: VerseMatcher.stripOpeningFormulas(ArabicNormalizer.words(transcript)).words.count,
+            transcriptionSeconds: transcriptionSeconds, recognizer: recognizer,
+            verdict: .unrated, correctRef: nil
+        )
     }
 
     func reset() {

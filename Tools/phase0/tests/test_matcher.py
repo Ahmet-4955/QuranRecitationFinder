@@ -68,6 +68,26 @@ def test_repeated_verse_reports_tie(matcher):
     assert results[0].score - results[-1].score < 0.01
 
 
+@pytest.mark.parametrize(
+    "prefix",
+    ["بسم الله الرحمن الرحيم ", "اعوذ بالله من الشيطان الرجيم بسم الله الرحمن الرحيم ", "اعوذ بلله من الشيطان الرجيم "],
+)
+def test_opening_formulas_do_not_lower_score(matcher, prefix):
+    best = matcher.match(prefix + "يس والقران الحكيم انك لمن المرسلين")[0]
+    assert best.start_ref == "36:1"
+    assert best.score > 0.9
+
+
+def test_basmala_alone_still_matches(matcher):
+    refs = {r.start_ref for r in matcher.match("بسم الله الرحمن الرحيم")}
+    assert "1:1" in refs
+
+
+def test_fatiha_with_basmala_starts_at_first_verse(matcher):
+    best = matcher.match("بسم الله الرحمن الرحيم الحمد لله رب العالمين الرحمن الرحيم")[0]
+    assert best.start_ref == "1:1"
+
+
 def test_garbage_scores_low(matcher):
     results = matcher.match("هذا نص عربي حديث عن الهاتف والسيارة والحاسوب")
     assert not results or results[0].score < 0.5

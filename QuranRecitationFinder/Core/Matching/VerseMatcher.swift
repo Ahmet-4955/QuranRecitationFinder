@@ -46,7 +46,20 @@ nonisolated final class VerseMatcher: @unchecked Sendable {
         var acceptThreshold: Float = 0.6
         /// Abstand, innerhalb dessen Treffer als gleichwertig gelten.
         var tieMargin: Float = 0.01
+        /// Weniger Wörter sind zu mehrdeutig für „erkannt“ (nur Vorschläge).
+        var minimumWordsForRecognition = 3
     }
+
+    /// Eröffnungsformeln, mit denen Rezitationen fast immer beginnen. Sie stehen (außer 1:1, 27:30)
+    /// nicht im Vers und würden die Trefferquote stark drücken – daher am Anfang entfernen.
+    /// Identisch zu OPENING_FORMULAS in Tools/phase0/quran_matcher.py.
+    static let openingFormulas: [[String]] = [
+        "اعوذ بالله من الشيطان الرجيم",
+        "اعوذ بالله السميع العليم من الشيطان الرجيم",
+        "بسم الله الرحمن الرحيم",
+    ].map { $0.split(separator: " ").map(String.init) }
+    static let formulaMinimumSimilarity: Float = 0.8
+    static let formulaMinimumRemaining = 2
 
     let index: QuranWordIndex
     let configuration: Configuration
@@ -64,7 +77,7 @@ nonisolated final class VerseMatcher: @unchecked Sendable {
 
     /// Bewertete Ergebnis-Liste, beste zuerst; sich überlappende Treffer zusammengefasst.
     func match(_ text: String, topK: Int = 3) -> [VerseMatch] {
-        let query = ArabicNormalizer.words(text)
+        let (query, basmalaRemoved) = Self.stripOpeningFormulas(ArabicNormalizer.words(text))
         guard !query.isEmpty else { return [] }
         let queryUnits = query.map(WordSimilarity.units)
 
@@ -77,8 +90,11 @@ nonisolated final class VerseMatcher: @unchecked Sendable {
             guard alignment.score > 0 else { continue }
             let first = lo + alignment.windowStart
             let last = lo + alignment.windowEnd
-            let startVerse = Int(index.wordVerse[first])
+            var startVerse = Int(index.wordVerse[first])
             let endVerse = Int(index.wordVerse[last])
+            if basmalaRemoved && startVerse == 1 {
+                startVerse = 0  // Al-Fatiha: die Basmala ist dort Vers 1:1
+            }
             guard let startID = quran.verse(atGlobalIndex: startVerse),
                   let endID = quran.verse(atGlobalIndex: endVerse) else { continue }
             results.append(
@@ -108,10 +124,39 @@ nonisolated final class VerseMatcher: @unchecked Sendable {
     func recognize(_ text: String) -> MatchOutcome {
         let results = match(text, topK: 5)
         guard let best = results.first else { return .nothing }
-        guard best.score >= configuration.acceptThreshold else {
+        let wordCount = Self.stripOpeningFormulas(ArabicNormalizer.words(text)).words.count
+        guard best.score >= configuration.acceptThreshold,
+              wordCount >= configuration.minimumWordsForRecognition else {
             return .uncertain(Array(results.prefix(3)))
         }
         return .recognized(results.filter { $0.score >= best.score - configuration.tieMargin })
+    }
+
+    // MARK: - Vorverarbeitung
+
+    /// Isti'adha/Basmala am Anfang entfernen (fehlertolerant), solange danach genug Text bleibt.
+    static func stripOpeningFormulas(_ input: [String]) -> (words: [String], basmalaRemoved: Bool) {
+        var query = input
+        var basmalaRemoved = false
+        var changed = true
+        while changed {
+            changed = false
+            for formula in openingFormulas {
+                let n = formula.count
+                guard query.count - n >= formulaMinimumRemaining else { continue }
+                var total: Float = 0
+                for (a, b) in zip(query.prefix(n), formula) {
+                    total += WordSimilarity.ratio(WordSimilarity.units(a), WordSimilarity.units(b))
+                }
+                if total / Float(n) >= formulaMinimumSimilarity {
+                    query.removeFirst(n)
+                    basmalaRemoved = basmalaRemoved || formula[0] == "بسم"
+                    changed = true
+                    break
+                }
+            }
+        }
+        return (query, basmalaRemoved)
     }
 
     // MARK: - Kandidatensuche

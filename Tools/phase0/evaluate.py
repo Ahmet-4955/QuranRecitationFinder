@@ -65,7 +65,9 @@ def threshold_table(rows: list[dict]) -> list[dict]:
 def best_threshold(table: list[dict]) -> dict:
     """Niedrigste Schwelle, die die Ziel-Präzision erreicht (max. Trefferquote bei wenig Fehlalarmen)."""
     ok = [r for r in table if r["precision"] >= TARGET_PRECISION]
-    return max(ok, key=lambda r: r["recall"]) if ok else max(table, key=lambda r: r["precision"])
+    # höchste Trefferquote; bei Gleichstand höhere Präzision; dann niedrigste Schwelle
+    return (max(ok, key=lambda r: (r["recall"], r["precision"], -r["threshold"])) if ok
+            else max(table, key=lambda r: r["precision"]))
 
 
 def pct(x: float) -> str:

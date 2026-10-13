@@ -6,6 +6,8 @@ struct AppContext {
     let library: QuranLibrary
     let matcher: VerseMatcher
     let recognizer: any RecitationRecognizer
+    let config: RecognitionConfig
+    let feedback: FeedbackLog
 }
 
 /// Lädt Korantext, Übersetzungen und den Suchindex beim App-Start.
@@ -28,12 +30,15 @@ final class AppModel: ObservableObject {
     @Published private(set) var recognizerStatus: RecognizerStatus = .preparing
     let settings: AppSettings
     let history: HistoryStore
+    let feedback: FeedbackLog
     private let recognizer: any RecitationRecognizer
 
     init(settings: AppSettings = AppSettings(), history: HistoryStore = HistoryStore(),
+         feedback: FeedbackLog = FeedbackLog(),
          recognizer: any RecitationRecognizer = RecognizerFactory.make()) {
         self.settings = settings
         self.history = history
+        self.feedback = feedback
         self.recognizer = recognizer
     }
 
@@ -43,14 +48,17 @@ final class AppModel: ObservableObject {
             let library = try await QuranLibrary.load()
             // Index über ~77.400 Wörter abseits des Main-Threads aufbauen
             let language = settings.translationLanguage.rawValue
+            let config = RecognitionConfig.load()
             let matcher = await Task.detached(priority: .userInitiated) {
                 // gewählte Übersetzung vorladen, damit das erste Ergebnis nicht stockt
                 if let info = library.translations.info(forLanguage: language) {
                     _ = try? library.translations.translation(forKey: info.key)
                 }
-                return VerseMatcher(quran: library.text)
+                return VerseMatcher(quran: library.text, edition: config.matcherEdition,
+                                    configuration: config.matcherConfiguration)
             }.value
-            state = .ready(AppContext(library: library, matcher: matcher, recognizer: recognizer))
+            state = .ready(AppContext(library: library, matcher: matcher, recognizer: recognizer,
+                                      config: config, feedback: feedback))
         } catch {
             state = .failed(error.localizedDescription)
             return

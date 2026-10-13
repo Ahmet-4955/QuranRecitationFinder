@@ -64,7 +64,8 @@ final class ViewModelHolder: ObservableObject {
     func setUp(context: AppContext, history: HistoryStore, settings: AppSettings) {
         guard model == nil else { return }
         model = RecognitionViewModel(capture: AudioCaptureService(), recognizer: context.recognizer,
-                                     matcher: context.matcher, history: history, settings: settings)
+                                     matcher: context.matcher, history: history, settings: settings,
+                                     feedback: context.feedback)
     }
 }
 
@@ -116,8 +117,59 @@ private struct PhaseView: View {
                 .multilineTextAlignment(.leading)
                 .frame(maxWidth: .infinity, alignment: .leading)
         case .finished(let recognition):
-            MatchResultView(outcome: recognition.outcome, transcript: recognition.transcript,
-                            transcriptionSeconds: recognition.transcriptionSeconds, context: context)
+            VStack(alignment: .leading, spacing: 20) {
+                MatchResultView(outcome: recognition.outcome, transcript: recognition.transcript,
+                                transcriptionSeconds: recognition.transcriptionSeconds, context: context)
+                FeedbackButtons(model: model)
+            }
+        }
+    }
+}
+
+/// „Stimmt / Stimmt nicht“ – fließt ins Testprotokoll für die Kalibrierung (Phase 5).
+private struct FeedbackButtons: View {
+    @ObservedObject var model: RecognitionViewModel
+    @State private var askCorrectVerse = false
+    @State private var correctRef = ""
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            switch model.verdict {
+            case .unrated:
+                Text("Stimmt das Ergebnis?")
+                    .font(.subheadline.weight(.semibold))
+                HStack(spacing: 12) {
+                    Button {
+                        model.rate(.correct)
+                    } label: {
+                        Label("Stimmt", systemImage: "hand.thumbsup")
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .tint(.green)
+                    Button {
+                        askCorrectVerse = true
+                    } label: {
+                        Label("Stimmt nicht", systemImage: "hand.thumbsdown")
+                    }
+                    .buttonStyle(.bordered)
+                    .tint(.red)
+                }
+            case .correct:
+                Label("Danke – als richtig vermerkt.", systemImage: "checkmark.circle")
+                    .foregroundStyle(.green)
+            case .wrong:
+                Label("Danke – als falsch vermerkt.", systemImage: "xmark.circle")
+                    .foregroundStyle(.red)
+            }
+        }
+        .font(.subheadline)
+        .alert("Welcher Vers war es?", isPresented: $askCorrectVerse) {
+            TextField("z. B. 2:255 (optional)", text: $correctRef)
+                .keyboardType(.numbersAndPunctuation)
+            Button("Speichern") { model.rate(.wrong, correctRef: correctRef) }
+            Button("Abbrechen", role: .cancel) {}
+        } message: {
+            Text("Hilft bei der Feinabstimmung der Erkennung.")
         }
     }
 }

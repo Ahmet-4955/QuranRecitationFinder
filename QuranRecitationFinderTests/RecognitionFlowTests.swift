@@ -43,10 +43,30 @@ struct RecognitionFlowTests {
         return AppSettings(defaults: UserDefaults(suiteName: name)!, locale: Locale(identifier: "de_DE"))
     }
 
+    private func makeFeedback() -> FeedbackLog {
+        FeedbackLog(fileURL: FileManager.default.temporaryDirectory
+            .appendingPathComponent("feedback-\(UUID().uuidString).json"))
+    }
+
     private func makeModel(capture: MockCapture, recognizer: any RecitationRecognizer,
-                           history: HistoryStore) throws -> RecognitionViewModel {
+                           history: HistoryStore, feedback: FeedbackLog? = nil) throws -> RecognitionViewModel {
         RecognitionViewModel(capture: capture, recognizer: recognizer, matcher: try SharedMatcher.get(),
-                             history: history, settings: makeSettings())
+                             history: history, settings: makeSettings(), feedback: feedback ?? makeFeedback())
+    }
+
+    @Test func ratingIsWrittenToFeedbackLog() async throws {
+        let feedback = makeFeedback()
+        let model = try makeModel(capture: MockCapture(), recognizer: MockRecognizer(text: "قل هو الله احد الله الصمد"),
+                                  history: makeHistory(), feedback: feedback)
+        await model.startRecording()
+        await model.stopAndRecognize()
+        #expect(feedback.records.count == 1)
+        #expect(feedback.records.first?.outcome == "recognized")
+        #expect(feedback.records.first?.transcriptionSeconds != nil)
+        model.rate(.wrong, correctRef: " 2:255 ")
+        #expect(model.verdict == .wrong)
+        #expect(feedback.records.first?.verdict == .wrong)
+        #expect(feedback.records.first?.correctRef == "2:255")
     }
 
     @Test func recordingIsRecognizedAndSaved() async throws {

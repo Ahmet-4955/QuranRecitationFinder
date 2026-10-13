@@ -30,6 +30,16 @@ VOTE_SMOOTHING = 3  # Toleranz für eingefügte/fehlende Wörter (± Wörter)
 MAX_CANDIDATES = 15
 WINDOW_MARGIN = 12
 
+# Eröffnungsformeln, mit denen Rezitationen fast immer beginnen. Sie stehen (außer 1:1, 27:30)
+# nicht im Vers und würden die Trefferquote stark drücken – daher am Anfang entfernen.
+OPENING_FORMULAS = [
+    "اعوذ بالله من الشيطان الرجيم".split(),
+    "اعوذ بالله السميع العليم من الشيطان الرجيم".split(),
+    "بسم الله الرحمن الرحيم".split(),
+]
+FORMULA_MIN_SIMILARITY = 0.8
+FORMULA_MIN_REMAINING = 2
+
 
 @dataclass
 class Match:
@@ -145,12 +155,34 @@ class QuranMatcher:
                 j -= 1
         return float(best), j, best_j - 1, matched
 
+    # -- Vorverarbeitung ---------------------------------------------------
+
+    @staticmethod
+    def strip_opening_formulas(query: list[str]) -> tuple[list[str], bool]:
+        """Isti'adha/Basmala am Anfang entfernen (fehlertolerant). Rückgabe: (Rest, Basmala entfernt?)."""
+        basmala_removed = False
+        changed = True
+        while changed:
+            changed = False
+            for formula in OPENING_FORMULAS:
+                n = len(formula)
+                if len(query) - n < FORMULA_MIN_REMAINING:
+                    continue
+                sims = [fuzz.ratio(a, b) / 100.0 for a, b in zip(query[:n], formula)]
+                if sum(sims) / n >= FORMULA_MIN_SIMILARITY:
+                    query = query[n:]
+                    basmala_removed = basmala_removed or formula[0] == "بسم"
+                    changed = True
+                    break
+        return query, basmala_removed
+
     # -- Öffentliche Schnittstelle --------------------------------------
 
     def match(self, text: str, top_k: int = 3) -> list[Match]:
         query = normalize(text).split()
         if not query:
             return []
+        query, basmala_removed = self.strip_opening_formulas(query)
         results: list[Match] = []
         for start in self._candidate_starts(query):
             lo = max(0, start - WINDOW_MARGIN)
@@ -160,6 +192,8 @@ class QuranMatcher:
                 continue
             first, last = lo + ws, lo + we
             sv, ev = int(self.word_verse[first]), int(self.word_verse[last])
+            if basmala_removed and sv == 1:
+                sv = 0  # Al-Fatiha: die Basmala ist dort Vers 1:1
             results.append(
                 Match(
                     start_verse=sv,

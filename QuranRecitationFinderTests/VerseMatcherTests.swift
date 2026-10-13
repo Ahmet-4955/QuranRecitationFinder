@@ -69,6 +69,36 @@ struct VerseMatcherTests {
         #expect((matches.first?.score ?? 0) > 0.8)
     }
 
+    @Test(arguments: [
+        "بسم الله الرحمن الرحيم ",
+        "اعوذ بالله من الشيطان الرجيم بسم الله الرحمن الرحيم ",
+        "اعوذ بلله من الشيطان الرجيم ",
+    ])
+    func openingFormulasDoNotLowerScore(prefix: String) throws {
+        let matcher = try SharedMatcher.get()
+        let best = try #require(matcher.match(prefix + "يس والقران الحكيم انك لمن المرسلين").first)
+        #expect(best.range.start == VerseID(surah: 36, ayah: 1))
+        #expect(best.score > 0.9)
+    }
+
+    @Test func fatihaWithBasmalaStartsAtFirstVerse() throws {
+        let matcher = try SharedMatcher.get()
+        let best = try #require(matcher.match("بسم الله الرحمن الرحيم الحمد لله رب العالمين الرحمن الرحيم").first)
+        #expect(best.range.start == VerseID(surah: 1, ayah: 1))
+    }
+
+    @Test func basmalaAloneStillMatches() throws {
+        let matcher = try SharedMatcher.get()
+        #expect(startRefs(matcher.match("بسم الله الرحمن الرحيم", topK: 5)).contains("1:1"))
+    }
+
+    @Test func tooFewWordsAreOnlySuggestions() throws {
+        let matcher = try SharedMatcher.get()
+        if case .recognized = matcher.recognize("الحمد لله") {
+            Issue.record("2 Wörter dürfen nicht als sicher erkannt gelten")
+        }
+    }
+
     @Test func excerptAcrossVerseBoundary() throws {
         let matcher = try SharedMatcher.get()
         let best = try #require(matcher.match("اهدنا الصراط المستقيم صراط الذين انعمت عليهم").first)
