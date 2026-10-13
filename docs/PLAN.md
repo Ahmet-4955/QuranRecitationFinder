@@ -124,6 +124,7 @@ in die App fließt.
 |---|---|
 | 0 | Werkzeuge fertig (`Tools/phase0/`), Verssuche getestet. **Messung mit echten Modellen + eigenen Aufnahmen steht aus (Mac).** |
 | 1 | Vorbereitet: Ressourcen-Skript (`Tools/data/`), Swift-Datenschicht (`QuranRecitationFinder/Core/`), Abnahmetests. **Daten erzeugen + Tests in Xcode ausführen steht aus (Mac).** |
+| 2 | Vorbereitet: Swift-Verssuche (`Core/Matching/`), Schwelle 0,6 (vorläufig) + Gleichstand-Erkennung, Abnahmetests, Vergleichsfälle-Export. Logik in Python-Nachbau mit Prototyp abgeglichen (154/154 identisch). **Kompilieren + Tests in Xcode steht aus (Mac); Schwelle nach Phase 0 kalibrieren.** |
 
 ## Umgang mit dem bestehenden Code
 

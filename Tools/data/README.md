@@ -42,22 +42,35 @@ python build_resources.py --tr turkish_shaban
 
 Das Skript bricht ab, wenn etwas unvollständig ist (z. B. fehlender Vers).
 
-## Schritt 3 – In Xcode prüfen
+## Schritt 3 – Vergleichsfälle für die Swift-Verssuche erzeugen (Phase 2)
+
+```bash
+cd ../phase0
+python export_swift_fixtures.py     # schreibt QuranRecitationFinderTests/MatcherFixtures.swift
+cd ../data
+```
+
+## Schritt 4 – In Xcode prüfen
 
 1. Projekt öffnen – die neuen Dateien unter `Resources/` erscheinen automatisch
    (synchronisierte Ordner).
-2. **Product → Test** (⌘U). Die Phase-1-Abnahmetests stehen in
+2. **Product → Test** (⌘U). Abnahmetests Phase 1 in
    `QuranRecitationFinderTests/QuranDataTests.swift`:
    - 114 Suren, 6.236 Verse, jeder Vers mit Text (beide Tanzil-Ausgaben)
    - Übersetzung DE/TR/EN jeweils vollständig, mit Versionsnummer
    - Normalisierung identisch zum Python-Prototyp aus Phase 0
    - Spracheinstellung wird gespeichert, Standard folgt der Gerätesprache
-3. Bei grünen Tests: Ressourcen committen.
+
+   Abnahmetests Phase 2 in `QuranRecitationFinderTests/VerseMatcherTests.swift`:
+   - bekannte Stellen, Ausschnitt über Versgrenze, gleichlautende Verse, fremder Text
+   - fehlerhafte Zufallsausschnitte: ≥ 85–95 % richtig je nach Länge
+   - Swift liefert dieselben Ergebnisse wie der Python-Prototyp (`MatcherFixtures.swift`)
+3. Bei grünen Tests: Ressourcen und `MatcherFixtures.swift` committen.
 
 ```bash
 cd ../..
-git add QuranRecitationFinder/Resources
-git commit -m "data: add Tanzil text and QuranEnc translations"
+git add QuranRecitationFinder/Resources QuranRecitationFinderTests/MatcherFixtures.swift
+git commit -m "data: add Tanzil text, QuranEnc translations and matcher fixtures"
 git push
 ```
 
