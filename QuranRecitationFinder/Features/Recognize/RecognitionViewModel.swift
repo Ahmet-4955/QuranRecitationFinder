@@ -14,6 +14,8 @@ final class RecognitionViewModel: ObservableObject {
     struct Recognition {
         let outcome: MatchOutcome
         let transcript: String
+        /// Dauer der Spracherkennung in Sekunden (nil bei Texteingabe). Ziel Phase 3: < 3 s.
+        var transcriptionSeconds: Double? = nil
     }
 
     /// Unter dieser Länge lohnt die Erkennung nicht.
@@ -97,8 +99,9 @@ final class RecognitionViewModel: ObservableObject {
         }
         phase = .processing
         do {
+            let started = Date()
             let text = try await recognizer.transcribe(samples: samples, sampleRate: AudioCaptureService.sampleRate)
-            await finish(transcript: text)
+            await finish(transcript: text, transcriptionSeconds: Date().timeIntervalSince(started))
         } catch {
             phase = .failed(error.localizedDescription)
         }
@@ -131,7 +134,7 @@ final class RecognitionViewModel: ObservableObject {
         await finish(transcript: text)
     }
 
-    private func finish(transcript: String) async {
+    private func finish(transcript: String, transcriptionSeconds: Double? = nil) async {
         let matcher = self.matcher
         let outcome = await Task.detached(priority: .userInitiated) {
             matcher.recognize(transcript)
@@ -142,7 +145,7 @@ final class RecognitionViewModel: ObservableObject {
                              alternatives: matches.dropFirst().map(\.range), transcript: transcript)
             )
         }
-        phase = .finished(Recognition(outcome: outcome, transcript: transcript))
+        phase = .finished(Recognition(outcome: outcome, transcript: transcript, transcriptionSeconds: transcriptionSeconds))
     }
 
     func reset() {

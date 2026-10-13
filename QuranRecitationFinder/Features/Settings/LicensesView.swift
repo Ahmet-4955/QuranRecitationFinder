@@ -34,9 +34,11 @@ struct LicensesView: View {
 
             Section {
                 Text("Spracherkennung: \(context.recognizer.displayName)")
-                Text("Modell- und Bibliothekslizenzen werden mit Phase 3 ergänzt (Tarteel Whisper – Apache 2.0, WhisperKit – MIT).")
-                    .font(.footnote)
-                    .foregroundStyle(.secondary)
+                ForEach(context.recognizer.credits, id: \.self) { line in
+                    Text(line)
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                }
             } header: {
                 Text("Spracherkennung")
             }

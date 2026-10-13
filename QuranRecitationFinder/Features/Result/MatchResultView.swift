@@ -4,6 +4,7 @@ import SwiftUI
 struct MatchResultView: View {
     let outcome: MatchOutcome
     let transcript: String
+    var transcriptionSeconds: Double? = nil
     let context: AppContext
 
     var body: some View {
@@ -36,6 +37,12 @@ struct MatchResultView: View {
                         .padding(.top, 4)
                 }
                 .font(.footnote)
+            }
+            if let seconds = transcriptionSeconds {
+                Text(String(format: "Spracherkennung: %.1f s", seconds))
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
+                    .monospacedDigit()
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)

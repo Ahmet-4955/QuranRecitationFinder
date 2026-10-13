@@ -3,6 +3,16 @@ import SwiftUI
 struct SettingsView: View {
     let context: AppContext
     @EnvironmentObject private var settings: AppSettings
+    @EnvironmentObject private var app: AppModel
+
+    private var recognizerStatusText: String {
+        switch app.recognizerStatus {
+        case .preparing: return "wird geladen …"
+        case .ready: return "bereit"
+        case .unavailable: return "nicht verfügbar"
+        case .failed: return "Fehler"
+        }
+    }
 
     var body: some View {
         NavigationStack {
@@ -36,6 +46,7 @@ struct SettingsView: View {
 
                 Section {
                     LabeledContent("Spracherkennung", value: context.recognizer.displayName)
+                    LabeledContent("Status", value: recognizerStatusText)
                     NavigationLink("Quellen & Lizenzen") {
                         LicensesView(context: context)
                     }

@@ -26,13 +26,15 @@ struct RecognizeView: View {
 private struct RecognizeScreen: View {
     @ObservedObject var model: RecognitionViewModel
     let context: AppContext
+    @EnvironmentObject private var app: AppModel
     @State private var showTextInput = false
 
     var body: some View {
         ScrollView {
             VStack(spacing: 24) {
+                RecognizerStatusBanner(status: app.recognizerStatus)
                 RecordButton(model: model)
-                    .padding(.top, 24)
+                    .padding(.top, 8)
                 PhaseView(model: model, context: context)
             }
             .padding()
@@ -114,7 +116,29 @@ private struct PhaseView: View {
                 .multilineTextAlignment(.leading)
                 .frame(maxWidth: .infinity, alignment: .leading)
         case .finished(let recognition):
-            MatchResultView(outcome: recognition.outcome, transcript: recognition.transcript, context: context)
+            MatchResultView(outcome: recognition.outcome, transcript: recognition.transcript,
+                            transcriptionSeconds: recognition.transcriptionSeconds, context: context)
+        }
+    }
+}
+
+/// Hinweis, solange das Sprachmodell lädt oder fehlt.
+private struct RecognizerStatusBanner: View {
+    let status: AppModel.RecognizerStatus
+
+    var body: some View {
+        switch status {
+        case .ready:
+            EmptyView()
+        case .preparing:
+            Label("Sprachmodell wird vorbereitet – beim ersten Start bis zu einer Minute.", systemImage: "hourglass")
+                .font(.footnote)
+                .foregroundStyle(.secondary)
+        case .unavailable(let reason), .failed(let reason):
+            Label(reason, systemImage: "exclamationmark.triangle")
+                .font(.footnote)
+                .foregroundStyle(.orange)
+                .frame(maxWidth: .infinity, alignment: .leading)
         }
     }
 }

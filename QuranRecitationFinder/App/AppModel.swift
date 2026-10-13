@@ -16,13 +16,22 @@ final class AppModel: ObservableObject {
         case failed(String)
     }
 
+    /// Zustand der Spracherkennung (Modell laden dauert beim ersten Start einige Sekunden).
+    enum RecognizerStatus: Equatable {
+        case preparing
+        case ready
+        case unavailable(String)
+        case failed(String)
+    }
+
     @Published private(set) var state: State = .loading
+    @Published private(set) var recognizerStatus: RecognizerStatus = .preparing
     let settings: AppSettings
     let history: HistoryStore
     private let recognizer: any RecitationRecognizer
 
     init(settings: AppSettings = AppSettings(), history: HistoryStore = HistoryStore(),
-         recognizer: any RecitationRecognizer = UnavailableRecognizer()) {
+         recognizer: any RecitationRecognizer = RecognizerFactory.make()) {
         self.settings = settings
         self.history = history
         self.recognizer = recognizer
@@ -44,6 +53,23 @@ final class AppModel: ObservableObject {
             state = .ready(AppContext(library: library, matcher: matcher, recognizer: recognizer))
         } catch {
             state = .failed(error.localizedDescription)
+            return
+        }
+        await prepareRecognizer()
+    }
+
+    /// Lädt das Sprachmodell vor, damit die erste Erkennung nicht warten muss.
+    func prepareRecognizer() async {
+        if let unavailable = recognizer as? UnavailableRecognizer {
+            recognizerStatus = .unavailable(unavailable.reason)
+            return
+        }
+        recognizerStatus = .preparing
+        do {
+            try await recognizer.prepare()
+            recognizerStatus = .ready
+        } catch {
+            recognizerStatus = .failed(error.localizedDescription)
         }
     }
 }
