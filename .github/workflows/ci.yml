@@ -6,6 +6,7 @@ name: CI
 
 on:
   push:
+    branches: [main]
   pull_request:
 
 jobs:
@@ -13,8 +14,8 @@ jobs:
     name: Python-Werkzeuge
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
       - run: pip install rapidfuzz numpy requests pytest
@@ -33,11 +34,11 @@ jobs:
     name: Swift-Kern (Swift 6.2, Linux)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
-      - run: pip install rapidfuzz numpy requests
+      - run: pip install rapidfuzz numpy requests pytest  # pytest: make_standin nutzt Test-Hilfsdaten
       - name: Testdaten (echte Ressourcen oder Ersatz)
         run: |
           if [ -f QuranRecitationFinder/Resources/Quran/quran-simple-clean.xml ]; then
