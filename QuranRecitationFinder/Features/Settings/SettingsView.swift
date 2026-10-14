@@ -11,49 +11,63 @@ struct SettingsView: View {
 
     private var recognizerStatusText: String {
         switch app.recognizerStatus {
-        case .preparing: return "wird geladen …"
-        case .ready: return "bereit"
-        case .unavailable: return "nicht verfügbar"
-        case .failed: return "Fehler"
+        case .preparing: return NSLocalizedString("loading …", comment: "")
+        case .ready: return NSLocalizedString("ready", comment: "")
+        case .unavailable: return NSLocalizedString("not available", comment: "")
+        case .failed: return NSLocalizedString("error", comment: "")
         }
     }
+
+    private func verbatimPair(_ a: Int, _ b: Int) -> String { "\(a) / \(b)" }
 
     var body: some View {
         NavigationStack {
             Form {
                 Section {
-                    Picker("Sprache", selection: $settings.translationLanguage) {
+                    Picker("Language", selection: $settings.translationLanguage) {
                         ForEach(TranslationLanguage.allCases) { language in
                             Text(language.displayName).tag(language)
                         }
                     }
                     if let info = context.library.translations.info(forLanguage: settings.translationLanguage.rawValue) {
-                        LabeledContent("Übersetzung", value: info.title)
+                        LabeledContent("Translation", value: info.title)
                         LabeledContent("Version", value: info.version)
                     } else {
-                        Text("Für diese Sprache ist keine Übersetzung eingebaut.")
+                        Text("No translation is built in for this language.")
                             .foregroundStyle(.orange)
                     }
                 } header: {
-                    Text("Übersetzung")
+                    Text("Translation")
+                }
+
+                Section {
+                    Button("Change app language") {
+                        if let url = URL(string: UIApplication.openSettingsURLString) {
+                            UIApplication.shared.open(url)
+                        }
+                    }
+                } header: {
+                    Text("App language")
+                } footer: {
+                    Text("The app language follows the iPhone language. It can be changed per app in the iOS settings.")
                 }
 
                 Section {
                     Stepper(value: $settings.maxRecordingSeconds, in: AppSettings.recordingRange) {
-                        LabeledContent("Höchstdauer", value: "\(settings.maxRecordingSeconds) s")
+                        LabeledContent("Maximum length", value: String(format: NSLocalizedString("%@ s", comment: ""), String(settings.maxRecordingSeconds)))
                     }
-                    Toggle("Bei Stille automatisch stoppen", isOn: $settings.autoStopOnSilence)
-                    Toggle("Schon während der Aufnahme erkennen", isOn: $settings.earlyRecognition)
+                    Toggle("Stop automatically on silence", isOn: $settings.autoStopOnSilence)
+                    Toggle("Recognize while still recording", isOn: $settings.earlyRecognition)
                 } header: {
-                    Text("Aufnahme")
+                    Text("Recording")
                 } footer: {
-                    Text("Höchstdauer: Die Aufnahme endet spätestens nach dieser Zeit, 8–15 Sekunden reichen meist. Stille: Stopp nach 2,5 s Ruhe, Atempausen werden toleriert. Früherkennung: Ist der Vers zweimal hintereinander eindeutig erkannt, endet die Aufnahme sofort.")
+                    Text("Maximum length: the recording ends after this time at the latest; 8–15 seconds are usually enough. Silence: stops after 2.5 s of quiet, breathing pauses are tolerated. Early recognition: once the verse is clearly recognized twice in a row, the recording ends immediately.")
                 }
 
                 Section {
-                    LabeledContent("Spracherkennung", value: context.recognizer.displayName)
+                    LabeledContent("Speech recognition", value: context.recognizer.displayName)
                     LabeledContent("Status", value: recognizerStatusText)
-                    NavigationLink("Quellen & Lizenzen") {
+                    NavigationLink("Sources & licenses") {
                         LicensesView(context: context)
                     }
                 } header: {
@@ -61,16 +75,16 @@ struct SettingsView: View {
                 }
 
                 Section {
-                    LabeledContent("Einträge", value: "\(records.count)")
-                    LabeledContent("Bewertet richtig / falsch",
-                                   value: "\(records.filter { $0.verdict == .correct }.count) / \(records.filter { $0.verdict == .wrong }.count)")
-                    LabeledContent("Schwelle", value: String(format: "%.2f", context.config.acceptThreshold))
+                    LabeledContent("Entries", value: String(records.count))
+                    LabeledContent("Rated correct / wrong",
+                                   value: verbatimPair(records.filter { $0.verdict == .correct }.count, records.filter { $0.verdict == .wrong }.count))
+                    LabeledContent("Threshold", value: context.config.acceptThreshold.formatted(.number.precision(.fractionLength(2))))
                     if let exportURL {
                         ShareLink(item: exportURL) {
-                            Label("Protokoll teilen", systemImage: "square.and.arrow.up")
+                            Label("Share log", systemImage: "square.and.arrow.up")
                         }
                     } else {
-                        Button("Protokoll exportieren") {
+                        Button("Export log") {
                             do {
                                 exportURL = try context.feedback.exportFile()
                             } catch {
@@ -82,21 +96,21 @@ struct SettingsView: View {
                     if let exportError {
                         Text(exportError).foregroundStyle(.red).font(.footnote)
                     }
-                    Button("Protokoll löschen", role: .destructive) { confirmDelete = true }
+                    Button("Delete log", role: .destructive) { confirmDelete = true }
                         .disabled(records.isEmpty)
                 } header: {
-                    Text("Testprotokoll (Feinabstimmung)")
+                    Text("Test log (fine-tuning)")
                 } footer: {
-                    Text("Jede Erkennung wird mit Ihrer Bewertung gespeichert – nur auf diesem Gerät. Export per AirDrop an den Mac, dann Tools/phase5/calibrate.py.")
+                    Text("Every recognition is saved with your rating – only on this device. Export via AirDrop to the Mac, then Tools/phase5/calibrate.py.")
                 }
             }
-            .navigationTitle("Einstellungen")
+            .navigationTitle("Settings")
             .onAppear {
                 records = context.feedback.records
                 exportURL = nil
             }
-            .confirmationDialog("Testprotokoll löschen?", isPresented: $confirmDelete, titleVisibility: .visible) {
-                Button("Löschen", role: .destructive) {
+            .confirmationDialog("Delete the test log?", isPresented: $confirmDelete, titleVisibility: .visible) {
+                Button("Delete", role: .destructive) {
                     context.feedback.removeAll()
                     records = []
                     exportURL = nil

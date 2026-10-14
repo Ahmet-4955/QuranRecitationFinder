@@ -26,13 +26,13 @@ nonisolated enum RecognitionError: LocalizedError, Equatable {
     var errorDescription: String? {
         switch self {
         case .notAvailable(let reason):
-            return "Spracherkennung nicht verfügbar (Phase 3): \(reason) Zum Testen: „Text eingeben“."
+            return String(format: NSLocalizedString("Speech recognition not available (phase 3): %@ For testing: “Enter text”.", comment: ""), reason)
         case .tooShort:
-            return "Die Aufnahme ist zu kurz. Bitte mindestens 2 Sekunden aufnehmen."
+            return NSLocalizedString("The recording is too short. Please record at least 2 seconds.", comment: "")
         case .noSpeech:
-            return "In der Aufnahme wurde keine Rezitation erkannt."
+            return NSLocalizedString("No recitation was recognized in the recording.", comment: "")
         case .unsupportedSampleRate:
-            return "Interner Fehler: Aufnahme nicht in 16 kHz."
+            return NSLocalizedString("Internal error: recording is not 16 kHz.", comment: "")
         }
     }
 }
@@ -41,11 +41,11 @@ nonisolated enum RecognitionError: LocalizedError, Equatable {
 nonisolated struct UnavailableRecognizer: RecitationRecognizer {
     let reason: String
 
-    init(reason: String = "Noch nicht eingebaut.") {
+    init(reason: String = NSLocalizedString("Not built in yet.", comment: "")) {
         self.reason = reason
     }
 
-    var displayName: String { "nicht verfügbar" }
+    var displayName: String { NSLocalizedString("not available", comment: "") }
 
     func transcribe(samples: [Float], sampleRate: Double) async throws -> String {
         throw RecognitionError.notAvailable(reason)

@@ -1,0 +1,30 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "NSMicrophoneUsageDescription": {
+      "comment": "Privacy - Microphone Usage Description",
+      "extractionState": "extracted_with_value",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The app records a short excerpt of the recitation to recognize the Quran verse. The recording stays on the device."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die App nimmt einen kurzen Ausschnitt der Rezitation auf, um den Koranvers zu erkennen. Die Aufnahme bleibt auf dem Gerät."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uygulama, Kur'an ayetini tanımak için tilavetten kısa bir bölüm kaydeder. Kayıt cihazda kalır."
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

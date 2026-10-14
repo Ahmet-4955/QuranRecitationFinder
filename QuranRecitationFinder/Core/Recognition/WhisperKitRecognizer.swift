@@ -27,8 +27,8 @@ actor WhisperKitRecognizer: RecitationRecognizer {
         self.modelFolder = modelFolder
         self.displayName = info.displayName
         self.credits = [
-            "Modell: \(info.model) – Lizenz \(info.license) (\(info.sourceURL))",
-            "WhisperKit (argmax-oss-swift) – MIT-Lizenz, https://github.com/argmaxinc/argmax-oss-swift",
+            String(format: NSLocalizedString("Model: %1$@ – license %2$@ (%3$@)", comment: ""), info.model, info.license, info.sourceURL),
+            NSLocalizedString("WhisperKit (argmax-oss-swift) – MIT license, https://github.com/argmaxinc/argmax-oss-swift", comment: ""),
         ]
     }
 
@@ -115,7 +115,7 @@ nonisolated enum RecognizerFactory {
             return UnavailableRecognizer(reason: error.localizedDescription)
         }
         #else
-        return UnavailableRecognizer(reason: "Swift-Paket WhisperKit ist noch nicht eingebunden (Tools/model/README.md, Schritt 4).")
+        return UnavailableRecognizer(reason: NSLocalizedString("The Swift package WhisperKit is not linked yet (Tools/model/README.md, step 4).", comment: ""))
         #endif
     }
 }

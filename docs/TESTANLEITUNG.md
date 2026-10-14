@@ -44,8 +44,15 @@ iPhone per Kabel verbinden, als Ziel wählen, **Run** (⌘R).
 | 16 | Mit Spracherkennung: 5 s rezitieren/abspielen, dann still sein | Aufnahme endet nach ~2,5 s Ruhe; unter dem Ergebnis „automatisch beendet – Stille“ |
 | 17 | Mit Spracherkennung: lange Rezitation abspielen (z. B. Yasin) | endet vor der Höchstdauer; „Früh erkannt nach x s“ |
 | 18 | Einstellungen → beide Automatiken aus → Aufnahme | läuft bis zur Höchstdauer |
+| 19 | iPhone-Sprache Deutsch (oder Einstellungen → „App-Sprache ändern“ → Sprache: Deutsch) | alle Texte Deutsch wie bisher, Tabs „Erkennen / Verlauf / Einstellungen“ |
+| 20 | App-Sprache Türkçe | Tabs „Tanı / Geçmiş / Ayarlar“, Fehlermeldungen und Mikrofon-Abfrage Türkisch, Zahlen mit Komma („1,4 sn“) |
+| 21 | App-Sprache English | Tabs „Recognize / History / Settings“, Mikrofon-Abfrage Englisch |
 
 Auffälligkeiten (Darstellung, Tempo, Texte) bitte mit Nummer melden.
+
+**Sprache schnell wechseln (ohne iPhone-Einstellungen):** Xcode → Product → Scheme → Edit Scheme → Run → Options → *App Language*. App-Sprache (Oberfläche) und Übersetzungssprache (Koran-Übersetzung, Einstellungen → Übersetzung) sind unabhängig voneinander.
+
+**Texte ändern:** `QuranRecitationFinder/Localizable.xcstrings` in Xcode öffnen (Tabelle EN/DE/TR). Neue Texte im Code immer englisch schreiben, dann im Katalog DE und TR ergänzen. `python3 Tools/l10n/check_strings.py` (auch in der CI) meldet fehlende oder veraltete Einträge.
 
 ## Hinweis zu den Pegel-Schwellen (Punkt 16)
 

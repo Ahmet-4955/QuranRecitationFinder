@@ -25,12 +25,12 @@ nonisolated enum PassageShareText {
         }
         if verses.count > maxVerses {
             lines.append("")
-            lines.append("… \(verses.count - maxVerses) weitere Verse")
+            lines.append(String(format: NSLocalizedString("… %@ more verses", comment: ""), String(verses.count - maxVerses)))
         }
         lines.append("")
-        var source = "Korantext: Tanzil.net"
+        var source = NSLocalizedString("Quran text: Tanzil.net", comment: "")
         if let info = translation?.info {
-            source += " · Übersetzung: \(info.attribution)"
+            source += " · " + String(format: NSLocalizedString("Translation: %@", comment: ""), info.attribution)
         }
         lines.append("— " + source)
         return lines.joined(separator: "\n")

@@ -131,6 +131,6 @@ struct PassageShareTextTests {
         let quran = try QuranText.load(from: .main)
         let text = PassageShareText.make(range: VerseRange(VerseID(surah: 112, ayah: 1)), quran: quran, translation: nil)
         #expect(!text.contains("(112:1)"))  // Einzelvers ohne Nummernpräfix
-        #expect(text.hasSuffix("— Korantext: Tanzil.net"))
+        #expect(text.hasSuffix("— " + NSLocalizedString("Quran text: Tanzil.net", comment: "")))
     }
 }

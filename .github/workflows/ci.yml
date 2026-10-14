@@ -1,5 +1,6 @@
 # Automatische Prüfung bei jedem Push / Pull Request.
 # - Python: alle Werkzeug-Tests (Verssuche-Prototyp, Daten, Modell-Umwandlung, Kalibrierung)
+# - Lokalisierung: alle Oberflächentexte in Localizable.xcstrings mit DE/TR
 # - Swift: plattformunabhängiger App-Kern mit Swift 6.2 kompilieren + Swift-Tests (Linux/Docker)
 # Die SwiftUI-Oberfläche und AVFoundation lassen sich nur in Xcode auf dem Mac prüfen.
 name: CI
@@ -28,7 +29,9 @@ jobs:
             echo "DATA=$RUNNER_TEMP/standin" >> "$GITHUB_ENV"
           fi
       - name: Tests
-        run: QURAN_CORPUS="$DATA/Quran/quran-simple-clean.xml" python -m pytest -q Tools/phase0/tests Tools/data/tests Tools/model/tests Tools/phase5/tests
+        run: QURAN_CORPUS="$DATA/Quran/quran-simple-clean.xml" python -m pytest -q Tools/phase0/tests Tools/data/tests Tools/model/tests Tools/phase5/tests Tools/l10n/tests
+      - name: Übersetzungen vollständig (DE/TR)
+        run: python Tools/l10n/check_strings.py
 
   swift-core:
     name: Swift-Kern (Swift 6.2, Linux)

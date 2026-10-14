@@ -1,0 +1,1846 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "%1$@ verses instead of %2$@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ Verse statt %2$@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%2$@ yerine %1$@ ayet"
+          }
+        }
+      }
+    },
+    "%1$@ verses · %2$@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ Verse · %2$@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ ayet · %2$@"
+          }
+        }
+      }
+    },
+    "%1$@ – %2$@, version %3$@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ – %2$@, Version %3$@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ – %2$@, sürüm %3$@"
+          }
+        }
+      }
+    },
+    "%1$@: %2$@ surahs": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@ Suren"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@ sure"
+          }
+        }
+      }
+    },
+    "%1$@: surah %2$@ has %3$@ instead of %4$@ verses": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: Sure %2$@ hat %3$@ statt %4$@ Verse"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@. surede %4$@ yerine %3$@ ayet var"
+          }
+        }
+      }
+    },
+    "%@ s": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ s"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ sn"
+          }
+        }
+      }
+    },
+    "%@ surahs in the metadata": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ Suren in den Metadaten"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Meta verilerde %@ sure"
+          }
+        }
+      }
+    },
+    "App language": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "App-Sprache"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uygulama dili"
+          }
+        }
+      }
+    },
+    "Cancel": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abbrechen"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vazgeç"
+          }
+        }
+      }
+    },
+    "Change app language": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "App-Sprache ändern"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uygulama dilini değiştir"
+          }
+        }
+      }
+    },
+    "Clear": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Leeren"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Temizle"
+          }
+        }
+      }
+    },
+    "Correct": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stimmt"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Doğru"
+          }
+        }
+      }
+    },
+    "Data missing": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Daten fehlen"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Veriler eksik"
+          }
+        }
+      }
+    },
+    "Delete": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Löschen"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sil"
+          }
+        }
+      }
+    },
+    "Delete history": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verlauf löschen"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geçmişi sil"
+          }
+        }
+      }
+    },
+    "Delete log": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Protokoll löschen"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kaydı sil"
+          }
+        }
+      }
+    },
+    "Delete the entire history?": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gesamten Verlauf löschen?"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tüm geçmiş silinsin mi?"
+          }
+        }
+      }
+    },
+    "Delete the test log?": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Testprotokoll löschen?"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Test kaydı silinsin mi?"
+          }
+        }
+      }
+    },
+    "e.g. 2:255 (optional)": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "z. B. 2:255 (optional)"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "örn. 2:255 (isteğe bağlı)"
+          }
+        }
+      }
+    },
+    "e.g. قل هو الله أحد": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "z. B. قل هو الله أحد"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "örn. قل هو الله أحد"
+          }
+        }
+      }
+    },
+    "Enter text": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Text eingeben"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Metin gir"
+          }
+        }
+      }
+    },
+    "Entries": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einträge"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kayıtlar"
+          }
+        }
+      }
+    },
+    "error": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fehler"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "hata"
+          }
+        }
+      }
+    },
+    "Every recognition is saved with your rating – only on this device. Export via AirDrop to the Mac, then Tools/phase5/calibrate.py.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jede Erkennung wird mit Ihrer Bewertung gespeichert – nur auf diesem Gerät. Export per AirDrop an den Mac, dann Tools/phase5/calibrate.py."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Her tanıma, değerlendirmenizle birlikte kaydedilir – yalnızca bu cihazda. AirDrop ile Mac'e aktarın, ardından Tools/phase5/calibrate.py."
+          }
+        }
+      }
+    },
+    "Export log": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Protokoll exportieren"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kaydı dışa aktar"
+          }
+        }
+      }
+    },
+    "Footnotes": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fußnoten"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dipnotlar"
+          }
+        }
+      }
+    },
+    "Helps to fine-tune the recognition.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hilft bei der Feinabstimmung der Erkennung."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tanımanın ince ayarına yardımcı olur."
+          }
+        }
+      }
+    },
+    "History": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verlauf"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geçmiş"
+          }
+        }
+      }
+    },
+    "Info": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Info"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bilgi"
+          }
+        }
+      }
+    },
+    "Internal error: recording is not 16 kHz.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Interner Fehler: Aufnahme nicht in 16 kHz."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dahili hata: kayıt 16 kHz değil."
+          }
+        }
+      }
+    },
+    "Is the result correct?": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stimmt das Ergebnis?"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sonuç doğru mu?"
+          }
+        }
+      }
+    },
+    "Language": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sprache"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dil"
+          }
+        }
+      }
+    },
+    "Loading Quran text …": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Korantext wird geladen …"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kur'an metni yükleniyor …"
+          }
+        }
+      }
+    },
+    "loading …": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "wird geladen …"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "yükleniyor …"
+          }
+        }
+      }
+    },
+    "Match: %@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Übereinstimmung: %@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eşleşme: %@"
+          }
+        }
+      }
+    },
+    "Maximum length": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Höchstdauer"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Azami süre"
+          }
+        }
+      }
+    },
+    "Maximum length: the recording ends after this time at the latest; 8–15 seconds are usually enough. Silence: stops after 2.5 s of quiet, breathing pauses are tolerated. Early recognition: once the verse is clearly recognized twice in a row, the recording ends immediately.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Höchstdauer: Die Aufnahme endet spätestens nach dieser Zeit, 8–15 Sekunden reichen meist. Stille: Stopp nach 2,5 s Ruhe, Atempausen werden toleriert. Früherkennung: Ist der Vers zweimal hintereinander eindeutig erkannt, endet die Aufnahme sofort."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Azami süre: Kayıt en geç bu sürenin sonunda biter; genellikle 8–15 saniye yeterlidir. Sessizlik: 2,5 sn sessizlikten sonra durur, nefes araları tolere edilir. Erken tanıma: Ayet arka arkaya iki kez net olarak tanınırsa kayıt hemen biter."
+          }
+        }
+      }
+    },
+    "Meccan": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "mekkanisch"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mekki"
+          }
+        }
+      }
+    },
+    "Medinan": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "medinensisch"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Medeni"
+          }
+        }
+      }
+    },
+    "Model folder incomplete, missing: %@.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modellordner unvollständig, es fehlt: %@."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Model klasörü eksik, bulunmayan: %@."
+          }
+        }
+      }
+    },
+    "Model folder “%@” is not in the app (Tools/model/README.md, step 3).": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modellordner „%@“ ist nicht in der App (Tools/model/README.md, Schritt 3)."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%@” model klasörü uygulamada yok (Tools/model/README.md, adım 3)."
+          }
+        }
+      }
+    },
+    "model-info.json is not readable.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "model-info.json ist nicht lesbar."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "model-info.json okunamıyor."
+          }
+        }
+      }
+    },
+    "Model: %1$@ – license %2$@ (%3$@)": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modell: %1$@ – Lizenz %2$@ (%3$@)"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Model: %1$@ – lisans %2$@ (%3$@)"
+          }
+        }
+      }
+    },
+    "No microphone access. Please allow it in Settings → Privacy & Security → Microphone.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kein Mikrofonzugriff. Bitte in Einstellungen → Datenschutz & Sicherheit → Mikrofon erlauben."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mikrofon erişimi yok. Lütfen Ayarlar → Gizlilik ve Güvenlik → Mikrofon bölümünden izin verin."
+          }
+        }
+      }
+    },
+    "No Quran verse recognized": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kein Koranvers erkannt"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kur'an ayeti tanınmadı"
+          }
+        }
+      }
+    },
+    "No recitation was recognized in the recording.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In der Aufnahme wurde keine Rezitation erkannt."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kayıtta tilavet tanınmadı."
+          }
+        }
+      }
+    },
+    "No recognitions yet": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noch keine Erkennungen"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Henüz tanıma yok"
+          }
+        }
+      }
+    },
+    "No translation available": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keine Übersetzung verfügbar"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Meal mevcut değil"
+          }
+        }
+      }
+    },
+    "No translation is built in for this language.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Für diese Sprache ist keine Übersetzung eingebaut."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu dil için yerleşik meal yok."
+          }
+        }
+      }
+    },
+    "not available": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "nicht verfügbar"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "kullanılamıyor"
+          }
+        }
+      }
+    },
+    "Not built in yet.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noch nicht eingebaut."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Henüz eklenmedi."
+          }
+        }
+      }
+    },
+    "Not correct": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stimmt nicht"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Doğru değil"
+          }
+        }
+      }
+    },
+    "Not recognized with certainty": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nicht sicher erkannt"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kesin olarak tanınmadı"
+          }
+        }
+      }
+    },
+    "Please record longer or more clearly. Possible passages:": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bitte länger oder deutlicher aufnehmen. Mögliche Stellen:"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lütfen daha uzun veya daha net kaydedin. Olası yerler:"
+          }
+        }
+      }
+    },
+    "Preparing the speech model – up to a minute on first launch.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sprachmodell wird vorbereitet – beim ersten Start bis zu einer Minute."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Konuşma modeli hazırlanıyor – ilk açılışta bir dakikaya kadar sürebilir."
+          }
+        }
+      }
+    },
+    "Quran text": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Korantext"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kur'an metni"
+          }
+        }
+      }
+    },
+    "Quran text: Tanzil Quran Text (Uthmani and Simple Clean), copyright © Tanzil.net. License: Creative Commons Attribution 3.0. The text is used unchanged.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Korantext: Tanzil Quran Text (Uthmani und Simple Clean), Copyright © Tanzil.net. Lizenz: Creative Commons Attribution 3.0. Der Text wird unverändert verwendet."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kur'an metni: Tanzil Quran Text (Uthmani ve Simple Clean), telif hakkı © Tanzil.net. Lisans: Creative Commons Attribution 3.0. Metin değiştirilmeden kullanılır."
+          }
+        }
+      }
+    },
+    "Quran text: Tanzil.net": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Korantext: Tanzil.net"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kur'an metni: Tanzil.net"
+          }
+        }
+      }
+    },
+    "Rated correct / wrong": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bewertet richtig / falsch"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Doğru / yanlış değerlendirilen"
+          }
+        }
+      }
+    },
+    "Read whole surah": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ganze Sure lesen"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Surenin tamamını oku"
+          }
+        }
+      }
+    },
+    "ready": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "bereit"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "hazır"
+          }
+        }
+      }
+    },
+    "Recognize": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erkennen"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tanı"
+          }
+        }
+      }
+    },
+    "Recognize while still recording": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schon während der Aufnahme erkennen"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kayıt sürerken tanı"
+          }
+        }
+      }
+    },
+    "Recognized": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erkannt"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tanındı"
+          }
+        }
+      }
+    },
+    "Recognized early after %@ s of recording": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Früh erkannt nach %@ s Aufnahme"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ sn kayıttan sonra erken tanındı"
+          }
+        }
+      }
+    },
+    "Recognized text": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erkannter Text"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tanınan metin"
+          }
+        }
+      }
+    },
+    "Recognized verses appear here.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erkannte Verse erscheinen hier."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tanınan ayetler burada görünür."
+          }
+        }
+      }
+    },
+    "Recognizing …": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wird erkannt …"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tanınıyor …"
+          }
+        }
+      }
+    },
+    "Recording": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aufnahme"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kayıt"
+          }
+        }
+      }
+    },
+    "Recording could not be started: %@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aufnahme konnte nicht gestartet werden: %@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kayıt başlatılamadı: %@"
+          }
+        }
+      }
+    },
+    "Recording … %@ s": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aufnahme läuft … %@ s"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kayıt sürüyor … %@ sn"
+          }
+        }
+      }
+    },
+    "Recording: %@ s": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aufnahme: %@ s"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kayıt: %@ sn"
+          }
+        }
+      }
+    },
+    "Recording: %@ s (maximum length reached)": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aufnahme: %@ s (Höchstdauer erreicht)"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kayıt: %@ sn (azami süreye ulaşıldı)"
+          }
+        }
+      }
+    },
+    "Recording: %@ s (stopped automatically – silence)": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aufnahme: %@ s (automatisch beendet – Stille)"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kayıt: %@ sn (otomatik durduruldu – sessizlik)"
+          }
+        }
+      }
+    },
+    "Resource missing from the app bundle: %@ – run Tools/data/build_resources.py.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ressource fehlt im App-Bundle: %@ – Tools/data/build_resources.py ausführen."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uygulama paketinde kaynak eksik: %@ – Tools/data/build_resources.py çalıştırın."
+          }
+        }
+      }
+    },
+    "Same wording also in:": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gleicher Wortlaut auch in:"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aynı ifade şurada da geçer:"
+          }
+        }
+      }
+    },
+    "Save": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Speichern"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kaydet"
+          }
+        }
+      }
+    },
+    "Search": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Suchen"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ara"
+          }
+        }
+      }
+    },
+    "Settings": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einstellungen"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ayarlar"
+          }
+        }
+      }
+    },
+    "Share": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Teilen"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Paylaş"
+          }
+        }
+      }
+    },
+    "Share log": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Protokoll teilen"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kaydı paylaş"
+          }
+        }
+      }
+    },
+    "Source: %1$@ · version %2$@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quelle: %1$@ · Version %2$@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kaynak: %1$@ · sürüm %2$@"
+          }
+        }
+      }
+    },
+    "Sources & licenses": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quellen & Lizenzen"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kaynaklar ve lisanslar"
+          }
+        }
+      }
+    },
+    "Speech recognition": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spracherkennung"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Konuşma tanıma"
+          }
+        }
+      }
+    },
+    "Speech recognition not available (phase 3): %@ For testing: “Enter text”.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spracherkennung nicht verfügbar (Phase 3): %@ Zum Testen: „Text eingeben“."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Konuşma tanıma kullanılamıyor (aşama 3): %@ Test için: “Metin gir”."
+          }
+        }
+      }
+    },
+    "Speech recognition: %@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spracherkennung: %@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Konuşma tanıma: %@"
+          }
+        }
+      }
+    },
+    "Speech recognition: %@ s": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spracherkennung: %@ s"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Konuşma tanıma: %@ sn"
+          }
+        }
+      }
+    },
+    "Start recording": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aufnahme starten"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kaydı başlat"
+          }
+        }
+      }
+    },
+    "Status": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Status"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Durum"
+          }
+        }
+      }
+    },
+    "Stop automatically on silence": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bei Stille automatisch stoppen"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sessizlikte otomatik durdur"
+          }
+        }
+      }
+    },
+    "Stop recording": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aufnahme beenden"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kaydı durdur"
+          }
+        }
+      }
+    },
+    "Surah %@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sure %@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@. sure"
+          }
+        }
+      }
+    },
+    "Tanzil data incomplete: %@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tanzil-Daten unvollständig: %@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tanzil verileri eksik: %@"
+          }
+        }
+      }
+    },
+    "Tanzil file not readable: %1$@ %2$@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tanzil-Datei nicht lesbar: %1$@ %2$@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tanzil dosyası okunamıyor: %1$@ %2$@"
+          }
+        }
+      }
+    },
+    "Tap, then play or recite a recitation": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tippen und Rezitation abspielen oder rezitieren"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dokunun, ardından bir tilavet çalın veya okuyun"
+          }
+        }
+      }
+    },
+    "Test log (fine-tuning)": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Testprotokoll (Feinabstimmung)"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Test kaydı (ince ayar)"
+          }
+        }
+      }
+    },
+    "Tests the verse search without a recording. Vowel marks are not needed.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zum Testen der Verssuche ohne Aufnahme. Vokalzeichen sind nicht nötig."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ayet aramasını kayıt olmadan test eder. Harekeler gerekli değildir."
+          }
+        }
+      }
+    },
+    "Thanks – marked as correct.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Danke – als richtig vermerkt."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Teşekkürler – doğru olarak işaretlendi."
+          }
+        }
+      }
+    },
+    "Thanks – marked as wrong.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Danke – als falsch vermerkt."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Teşekkürler – yanlış olarak işaretlendi."
+          }
+        }
+      }
+    },
+    "The app language follows the iPhone language. It can be changed per app in the iOS settings.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die App-Sprache folgt der iPhone-Sprache. Sie lässt sich in den iOS-Einstellungen pro App ändern."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uygulama dili iPhone dilini izler. iOS ayarlarından uygulama bazında değiştirilebilir."
+          }
+        }
+      }
+    },
+    "The microphone does not provide a usable audio format.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das Mikrofon liefert kein nutzbares Audioformat."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mikrofon kullanılabilir bir ses biçimi sağlamıyor."
+          }
+        }
+      }
+    },
+    "The recording is too short. Please record at least 2 seconds.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Aufnahme ist zu kurz. Bitte mindestens 2 Sekunden aufnehmen."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kayıt çok kısa. Lütfen en az 2 saniye kaydedin."
+          }
+        }
+      }
+    },
+    "The Swift package WhisperKit is not linked yet (Tools/model/README.md, step 4).": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Swift-Paket WhisperKit ist noch nicht eingebunden (Tools/model/README.md, Schritt 4)."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "WhisperKit Swift paketi henüz eklenmedi (Tools/model/README.md, adım 4)."
+          }
+        }
+      }
+    },
+    "The translations are taken unchanged from QuranEnc.com. Please report remarks on translations to QuranEnc.com.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Übersetzungen werden unverändert von QuranEnc.com übernommen. Hinweise zu Übersetzungen bitte an QuranEnc.com melden."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mealler QuranEnc.com'dan değiştirilmeden alınmıştır. Meallerle ilgili notlarınızı lütfen QuranEnc.com'a bildirin."
+          }
+        }
+      }
+    },
+    "Threshold": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schwelle"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eşik"
+          }
+        }
+      }
+    },
+    "Translation": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Übersetzung"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Meal"
+          }
+        }
+      }
+    },
+    "Translation %1$@ incomplete: %2$@ instead of %3$@ verses": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Übersetzung %1$@ unvollständig: %2$@ statt %3$@ Verse"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ meali eksik: %3$@ yerine %2$@ ayet"
+          }
+        }
+      }
+    },
+    "Translation %@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Übersetzung %@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ meali"
+          }
+        }
+      }
+    },
+    "Translation file does not match: expected %1$@, found %2$@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Übersetzungsdatei passt nicht: erwartet %1$@, gefunden %2$@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Meal dosyası uyuşmuyor: beklenen %1$@, bulunan %2$@"
+          }
+        }
+      }
+    },
+    "Translation: %@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Übersetzung: %@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Meal: %@"
+          }
+        }
+      }
+    },
+    "Translations": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Übersetzungen"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mealler"
+          }
+        }
+      }
+    },
+    "Version": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Version"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sürüm"
+          }
+        }
+      }
+    },
+    "Which verse was it?": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Welcher Vers war es?"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hangi ayetti?"
+          }
+        }
+      }
+    },
+    "WhisperKit (argmax-oss-swift) – MIT license, https://github.com/argmaxinc/argmax-oss-swift": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "WhisperKit (argmax-oss-swift) – MIT-Lizenz, https://github.com/argmaxinc/argmax-oss-swift"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "WhisperKit (argmax-oss-swift) – MIT lisansı, https://github.com/argmaxinc/argmax-oss-swift"
+          }
+        }
+      }
+    },
+    "… %@ more verses": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "… %@ weitere Verse"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "… %@ ayet daha"
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

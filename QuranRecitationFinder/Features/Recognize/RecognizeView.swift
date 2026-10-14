@@ -15,7 +15,7 @@ struct RecognizeView: View {
                     ProgressView()
                 }
             }
-            .navigationTitle("Erkennen")
+            .navigationTitle("Recognize")
         }
         .onAppear {
             holder.setUp(context: context, history: history, settings: settings)
@@ -44,7 +44,7 @@ private struct RecognizeScreen: View {
                 Button {
                     showTextInput = true
                 } label: {
-                    Label("Text eingeben", systemImage: "character.cursor.ibeam")
+                    Label("Enter text", systemImage: "character.cursor.ibeam")
                 }
                 .disabled(model.isBusy)
             }
@@ -89,14 +89,18 @@ private struct RecordButton: View {
                 }
             }
             .disabled(model.isProcessing)
-            .accessibilityLabel(model.isRecording ? "Aufnahme beenden" : "Aufnahme starten")
+            .accessibilityLabel(model.isRecording ? Text("Stop recording") : Text("Start recording"))
 
-            Text(model.isRecording
-                 ? String(format: "Aufnahme läuft … %.0f s", model.elapsed)
-                 : "Tippen und Rezitation abspielen oder rezitieren")
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
-                .monospacedDigit()
+            Group {
+                if model.isRecording {
+                    Text(String(format: NSLocalizedString("Recording … %@ s", comment: ""), UIFormat.seconds(model.elapsed)))
+                } else {
+                    Text("Tap, then play or recite a recitation")
+                }
+            }
+            .font(.subheadline)
+            .foregroundStyle(.secondary)
+            .monospacedDigit()
         }
     }
 }
@@ -107,12 +111,12 @@ private struct PhaseView: View {
 
     static func stopNote(_ recognition: RecognitionViewModel.Recognition) -> String? {
         guard let reason = recognition.stopReason, let seconds = recognition.recordedSeconds else { return nil }
-        let length = String(format: "%.0f s", seconds)
+        let length = UIFormat.seconds(seconds)
         switch reason {
-        case .manual: return "Aufnahme: \(length)"
-        case .maximum: return "Aufnahme: \(length) (Höchstdauer erreicht)"
-        case .silence: return "Aufnahme: \(length) (automatisch beendet – Stille)"
-        case .early: return "Früh erkannt nach \(length) Aufnahme"
+        case .manual: return String(format: NSLocalizedString("Recording: %@ s", comment: ""), length)
+        case .maximum: return String(format: NSLocalizedString("Recording: %@ s (maximum length reached)", comment: ""), length)
+        case .silence: return String(format: NSLocalizedString("Recording: %@ s (stopped automatically – silence)", comment: ""), length)
+        case .early: return String(format: NSLocalizedString("Recognized early after %@ s of recording", comment: ""), length)
         }
     }
 
@@ -121,7 +125,7 @@ private struct PhaseView: View {
         case .idle, .recording:
             EmptyView()
         case .processing:
-            ProgressView("Wird erkannt …")
+            ProgressView("Recognizing …")
         case .failed(let message):
             Label(message, systemImage: "exclamationmark.circle")
                 .foregroundStyle(.orange)
@@ -152,40 +156,40 @@ private struct FeedbackButtons: View {
         VStack(alignment: .leading, spacing: 8) {
             switch model.verdict {
             case .unrated:
-                Text("Stimmt das Ergebnis?")
+                Text("Is the result correct?")
                     .font(.subheadline.weight(.semibold))
                 HStack(spacing: 12) {
                     Button {
                         model.rate(.correct)
                     } label: {
-                        Label("Stimmt", systemImage: "hand.thumbsup")
+                        Label("Correct", systemImage: "hand.thumbsup")
                     }
                     .buttonStyle(.borderedProminent)
                     .tint(.green)
                     Button {
                         askCorrectVerse = true
                     } label: {
-                        Label("Stimmt nicht", systemImage: "hand.thumbsdown")
+                        Label("Not correct", systemImage: "hand.thumbsdown")
                     }
                     .buttonStyle(.bordered)
                     .tint(.red)
                 }
             case .correct:
-                Label("Danke – als richtig vermerkt.", systemImage: "checkmark.circle")
+                Label("Thanks – marked as correct.", systemImage: "checkmark.circle")
                     .foregroundStyle(.green)
             case .wrong:
-                Label("Danke – als falsch vermerkt.", systemImage: "xmark.circle")
+                Label("Thanks – marked as wrong.", systemImage: "xmark.circle")
                     .foregroundStyle(.red)
             }
         }
         .font(.subheadline)
-        .alert("Welcher Vers war es?", isPresented: $askCorrectVerse) {
-            TextField("z. B. 2:255 (optional)", text: $correctRef)
+        .alert("Which verse was it?", isPresented: $askCorrectVerse) {
+            TextField("e.g. 2:255 (optional)", text: $correctRef)
                 .keyboardType(.numbersAndPunctuation)
-            Button("Speichern") { model.rate(.wrong, correctRef: correctRef) }
-            Button("Abbrechen", role: .cancel) {}
+            Button("Save") { model.rate(.wrong, correctRef: correctRef) }
+            Button("Cancel", role: .cancel) {}
         } message: {
-            Text("Hilft bei der Feinabstimmung der Erkennung.")
+            Text("Helps to fine-tune the recognition.")
         }
     }
 }
@@ -199,7 +203,7 @@ private struct RecognizerStatusBanner: View {
         case .ready:
             EmptyView()
         case .preparing:
-            Label("Sprachmodell wird vorbereitet – beim ersten Start bis zu einer Minute.", systemImage: "hourglass")
+            Label("Preparing the speech model – up to a minute on first launch.", systemImage: "hourglass")
                 .font(.footnote)
                 .foregroundStyle(.secondary)
         case .unavailable(let reason), .failed(let reason):
@@ -220,23 +224,23 @@ private struct ManualInputView: View {
         NavigationStack {
             Form {
                 Section {
-                    TextField("z. B. قل هو الله أحد", text: $text, axis: .vertical)
+                    TextField("e.g. قل هو الله أحد", text: $text, axis: .vertical)
                         .lineLimit(3...8)
                         // Rechts→links-Eingabe: dort ist .leading die rechte Seite
                         .multilineTextAlignment(.leading)
                         .environment(\.layoutDirection, .rightToLeft)
                 } footer: {
-                    Text("Zum Testen der Verssuche, solange die Spracherkennung (Phase 3) fehlt. Vokalzeichen sind nicht nötig.")
+                    Text("Tests the verse search without a recording. Vowel marks are not needed.")
                 }
             }
-            .navigationTitle("Text eingeben")
+            .navigationTitle("Enter text")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Abbrechen") { dismiss() }
+                    Button("Cancel") { dismiss() }
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Suchen") {
+                    Button("Search") {
                         onSubmit(text)
                         dismiss()
                     }
