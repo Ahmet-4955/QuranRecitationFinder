@@ -20,6 +20,8 @@ actor WhisperKitRecognizer: RecitationRecognizer {
 
     private var box: Box?
     private var loading: Task<Box, Error>?
+    /// Letzte angestoßene Erkennung – neue Aufrufe warten darauf (siehe `transcribe`).
+    private var queueTail: Task<Void, Never>?
 
     init(modelFolder: URL, info: WhisperModelInfo) {
         self.modelFolder = modelFolder
@@ -34,8 +36,21 @@ actor WhisperKitRecognizer: RecitationRecognizer {
         _ = try await loadedBox()
     }
 
+    /// Aufrufe laufen strikt nacheinander: Actors erlauben Wiedereintritt bei `await`, und
+    /// Zwischenerkennung (Früherkennung) und endgültige Erkennung dürfen nicht gleichzeitig
+    /// auf dieselbe WhisperKit-Instanz zugreifen.
     func transcribe(samples: [Float], sampleRate: Double) async throws -> String {
         guard sampleRate == 16_000 else { throw RecognitionError.unsupportedSampleRate }
+        let previous = queueTail
+        let job = Task<String, Error> {
+            await previous?.value
+            return try await self.performTranscription(samples: samples)
+        }
+        queueTail = Task { _ = try? await job.value }
+        return try await job.value
+    }
+
+    private func performTranscription(samples: [Float]) async throws -> String {
         let kit = try await loadedBox().kit
         let options = DecodingOptions(
             task: .transcribe,

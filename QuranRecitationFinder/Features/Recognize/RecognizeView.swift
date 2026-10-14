@@ -105,6 +105,17 @@ private struct PhaseView: View {
     @ObservedObject var model: RecognitionViewModel
     let context: AppContext
 
+    static func stopNote(_ recognition: RecognitionViewModel.Recognition) -> String? {
+        guard let reason = recognition.stopReason, let seconds = recognition.recordedSeconds else { return nil }
+        let length = String(format: "%.0f s", seconds)
+        switch reason {
+        case .manual: return "Aufnahme: \(length)"
+        case .maximum: return "Aufnahme: \(length) (Höchstdauer erreicht)"
+        case .silence: return "Aufnahme: \(length) (automatisch beendet – Stille)"
+        case .early: return "Früh erkannt nach \(length) Aufnahme"
+        }
+    }
+
     var body: some View {
         switch model.phase {
         case .idle, .recording:
@@ -120,6 +131,11 @@ private struct PhaseView: View {
             VStack(alignment: .leading, spacing: 20) {
                 MatchResultView(outcome: recognition.outcome, transcript: recognition.transcript,
                                 transcriptionSeconds: recognition.transcriptionSeconds, context: context)
+                if let note = Self.stopNote(recognition) {
+                    Text(note)
+                        .font(.caption2)
+                        .foregroundStyle(.secondary)
+                }
                 FeedbackButtons(model: model)
             }
         }

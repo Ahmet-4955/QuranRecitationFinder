@@ -39,6 +39,10 @@ nonisolated struct VerseRange: Hashable, Codable, Sendable, CustomStringConverti
         self.init(start: verse, end: verse)
     }
 
+    func contains(_ verse: VerseID) -> Bool {
+        start <= verse && verse <= end
+    }
+
     var description: String {
         start == end ? start.description : "\(start)–\(end)"
     }

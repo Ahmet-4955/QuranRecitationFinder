@@ -128,21 +128,23 @@ in die App fließt.
 | 3 | Vorbereitet: Umwandlungsskript (`Tools/model/convert_model.py`, ergänzt `alignment_heads`, Tokenizer offline), `WhisperKitRecognizer` (WhisperKit 1.1.1, Arabisch fest, Modell vorladen), automatische Auswahl Modell/Platzhalter, Statusanzeige, Zeitmessung je Erkennung, Tests. **Umwandeln + in Xcode einbinden + Gerätetest steht aus (Mac), Anleitung: `Tools/model/README.md`. Modellgröße nach Phase 0.** |
 | 4 | Vorbereitet: neue Oberfläche (Erkennen / Verlauf / Einstellungen / Quellen & Lizenzen), Aufnahme über AVAudioEngine direkt in 16 kHz, Spracherkennung hinter Protokoll `RecitationRecognizer` (Platzhalter bis Phase 3), Texteingabe zum Testen, Ablauftests mit simuliertem Mikrofon. Alter Code entfernt. **Kompilieren + Gerätetest steht aus (Mac), Anleitung: `docs/TESTANLEITUNG.md`.** |
 | 5 | Vorbereitet: `recognition-config.json` (Schwelle, Ausgabe, Mindestwortzahl), Testprotokoll mit „Stimmt / Stimmt nicht“ + Export, `Tools/phase5/calibrate.py` (Phase-0-Ergebnisse + App-Export → Schwelle). **Messdaten fehlen noch.** |
-| 6 | Optional, nicht begonnen – siehe unten. Für eine lauffähige App nicht nötig. |
+| 6 | Vorbereitet: automatischer Stopp bei Stille, Früherkennung während der Aufnahme, ganze Sure lesen, Teilen (mit Quellenangabe), Checkliste Veröffentlichung (`docs/VEROEFFENTLICHUNG.md`). Ablaufsteuerung samt Tests jetzt auch unter Linux geprüft (67 Swift-Tests). **Gerätetest steht aus; Pegel-Schwellen der Stille-Erkennung am iPhone prüfen.** |
 | CI | `.github/workflows/ci.yml`: bei jedem Push Python-Tests + Swift-Kern kompilieren und testen (Swift 6.2). |
 
 Kompletter Weg zur laufenden App: [`docs/INBETRIEBNAHME.md`](INBETRIEBNAHME.md).
 
 ### Phase 6 – mögliche Erweiterungen (erst nach erfolgreichem Gerätetest)
 
-| Erweiterung | Nutzen | Aufwand | Hinweis |
-|---|---|---|---|
-| Erkennung schon während der Aufnahme | Ergebnis nach 3–5 s statt nach Stopp | mittel | WhisperKit-Streaming |
-| Automatischer Stopp bei Stille | weniger Tippen | gering | Pegel aus der Aufnahme reicht |
-| Weiterlesen ab erkanntem Vers | Mitlesen der Rezitation | gering | Daten liegen schon vor |
-| Referenzrezitation abspielen | Vergleich hören | mittel | Audio-Lizenz klären, braucht Internet |
-| Tafsir / weitere Sprachen | mehr Inhalt | gering je Sprache | QuranEnc bietet viele Übersetzungen |
-| Kommerzielle Veröffentlichung | App Store | mittel | Lizenzen prüfen (Tanzil, QuranEnc, Modell) |
+| Erweiterung | Stand |
+|---|---|
+| Erkennung schon während der Aufnahme | ✅ umgesetzt: Zwischenerkennung ab 5 s alle 3 s; Stopp, wenn zweimal dieselbe eindeutige Stelle, ≥ 6 Wörter, Score ≥ Schwelle + 0,1 |
+| Automatischer Stopp bei Stille | ✅ umgesetzt: nach ≥ 3 s Rezitation und 2,5 s Ruhe; Atempausen bis 2 s werden toleriert |
+| Weiterlesen ab erkanntem Vers | ✅ umgesetzt: „Ganze Sure lesen“, springt zum Vers, hebt ihn hervor |
+| Teilen | ✅ umgesetzt: Arabisch + Übersetzung + Quellenangabe |
+| Kommerzielle Veröffentlichung | ✅ Checkliste: `docs/VEROEFFENTLICHUNG.md` |
+| Referenzrezitation abspielen | offen – Audio-Lizenz klären, braucht Internet |
+| Tafsir / weitere Sprachen | offen – QuranEnc bietet viele Übersetzungen; Sprachliste dafür flexibel machen |
+| Oberfläche mehrsprachig (TR/EN) | offen – String Catalog |
 
 ## Umgang mit dem bestehenden Code
 
