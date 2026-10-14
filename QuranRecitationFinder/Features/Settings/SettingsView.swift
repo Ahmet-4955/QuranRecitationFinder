@@ -42,10 +42,12 @@ struct SettingsView: View {
                     Stepper(value: $settings.maxRecordingSeconds, in: AppSettings.recordingRange) {
                         LabeledContent("Höchstdauer", value: "\(settings.maxRecordingSeconds) s")
                     }
+                    Toggle("Bei Stille automatisch stoppen", isOn: $settings.autoStopOnSilence)
+                    Toggle("Schon während der Aufnahme erkennen", isOn: $settings.earlyRecognition)
                 } header: {
                     Text("Aufnahme")
                 } footer: {
-                    Text("Die Aufnahme endet automatisch nach dieser Zeit. 8–15 Sekunden reichen meist.")
+                    Text("Höchstdauer: Die Aufnahme endet spätestens nach dieser Zeit, 8–15 Sekunden reichen meist. Stille: Stopp nach 2,5 s Ruhe, Atempausen werden toleriert. Früherkennung: Ist der Vers zweimal hintereinander eindeutig erkannt, endet die Aufnahme sofort.")
                 }
 
                 Section {

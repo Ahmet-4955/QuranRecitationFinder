@@ -6,6 +6,8 @@ final class AppSettings: ObservableObject {
     private enum Keys {
         static let language = "settings.translationLanguage"
         static let maxRecording = "settings.maxRecordingSeconds"
+        static let autoStop = "settings.autoStopOnSilence"
+        static let early = "settings.earlyRecognition"
     }
 
     static let recordingRange = 5...30
@@ -27,6 +29,16 @@ final class AppSettings: ObservableObject {
         }
     }
 
+    /// Aufnahme endet von selbst, wenn die Rezitation aufhört.
+    @Published var autoStopOnSilence: Bool {
+        didSet { defaults.set(autoStopOnSilence, forKey: Keys.autoStop) }
+    }
+
+    /// Schon während der Aufnahme erkennen und bei sicherem Ergebnis vorzeitig beenden.
+    @Published var earlyRecognition: Bool {
+        didSet { defaults.set(earlyRecognition, forKey: Keys.early) }
+    }
+
     init(defaults: UserDefaults = .standard, locale: Locale = .current) {
         self.defaults = defaults
         if let stored = defaults.string(forKey: Keys.language),
@@ -37,5 +49,7 @@ final class AppSettings: ObservableObject {
         }
         let storedSeconds = defaults.integer(forKey: Keys.maxRecording)
         maxRecordingSeconds = Self.recordingRange.contains(storedSeconds) ? storedSeconds : Self.defaultMaxRecordingSeconds
+        autoStopOnSilence = defaults.object(forKey: Keys.autoStop) as? Bool ?? true
+        earlyRecognition = defaults.object(forKey: Keys.early) as? Bool ?? true
     }
 }

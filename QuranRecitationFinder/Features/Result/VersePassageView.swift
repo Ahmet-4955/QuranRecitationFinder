@@ -74,11 +74,35 @@ struct VersePassageView: View {
                     .font(.caption2)
                     .foregroundStyle(.secondary)
             }
+
+            HStack(spacing: 12) {
+                ShareLink(item: shareText(info: info)) {
+                    Label("Teilen", systemImage: "square.and.arrow.up")
+                }
+                if showsReaderLink {
+                    NavigationLink {
+                        SurahReaderView(surahNumber: range.start.surah, highlight: range, context: context)
+                    } label: {
+                        Label("Ganze Sure lesen", systemImage: "book")
+                    }
+                }
+            }
+            .buttonStyle(.bordered)
+            .font(.subheadline)
         }
+    }
+
+    /// In der Sure-Ansicht selbst nicht noch einmal anbieten.
+    var showsReaderLink = true
+
+    private func shareText(info: TranslationInfo?) -> String {
+        let translation = info.flatMap { try? context.library.translations.translation(forKey: $0.key) }
+        return PassageShareText.make(range: range, quran: context.library.text, translation: translation)
     }
 }
 
-private struct VerseRow: View {
+/// Ein Vers: Nummer, arabischer Text, Übersetzung, Fußnoten.
+struct VerseRow: View {
     let verse: VerseID
     let context: AppContext
     let language: TranslationLanguage

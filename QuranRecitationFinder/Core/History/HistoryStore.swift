@@ -47,7 +47,10 @@ final class HistoryStore: ObservableObject {
     }
 
     func remove(at offsets: IndexSet) {
-        entries.remove(atOffsets: offsets)
+        // remove(atOffsets:) gehört zu SwiftUI – hier bewusst nur Foundation
+        for index in offsets.sorted(by: >) where entries.indices.contains(index) {
+            entries.remove(at: index)
+        }
         save()
     }
 

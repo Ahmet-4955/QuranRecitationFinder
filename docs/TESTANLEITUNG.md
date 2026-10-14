@@ -1,4 +1,4 @@
-# Testanleitung App (Stand Phase 1–5)
+# Testanleitung App (Stand Phase 1–6)
 
 Stand: 14.10.2026
 
@@ -14,6 +14,7 @@ Voraussetzung: `Tools/data/README.md` Schritte 1–3 erledigt (Daten + Vergleich
 | `VerseMatcherTests.swift` | Phase 2: Verssuche, Gleichstände, fremder Text, Vergleich mit Python |
 | `RecognitionFlowTests.swift` | Phase 4: Ablauf Aufnahme → Erkennung → Verlauf (simuliertes Mikrofon) |
 | `Phase5Tests.swift` | Phase 5: Konfigurationsdatei, Testprotokoll |
+| `Phase6Tests.swift` | Phase 6: Stille-Erkennung, Früherkennung, Teilen |
 | `AppSettingsTests.swift` | Einstellungen (Sprache, Höchstdauer) |
 | `RecognizerTests.swift` | Phase 3: Modellordner, Auswahl Spracherkennung, Rauchtest mit echtem Modell (nur wenn eingebunden) |
 
@@ -38,5 +39,16 @@ iPhone per Kabel verbinden, als Ziel wählen, **Run** (⌘R).
 | 11 | Nach einem Ergebnis „Stimmt nicht“ → `2:255` eingeben | „als falsch vermerkt“ |
 | 12 | Einstellungen → Testprotokoll → Exportieren → Teilen | JSON-Datei per AirDrop auf den Mac |
 | 13 | Text eingeben: `اعوذ بالله من الشيطان الرجيم بسم الله الرحمن الرحيم يس والقران الحكيم` | Erkannt 36:1, Übereinstimmung > 90 % |
+| 14 | Ergebnis → „Ganze Sure lesen“ | Sure öffnet, springt zum Vers, Vers hervorgehoben |
+| 15 | Ergebnis → „Teilen“ → Notizen | Arabisch + Übersetzung + „Korantext: Tanzil.net · Übersetzung: …“ |
+| 16 | Mit Spracherkennung: 5 s rezitieren/abspielen, dann still sein | Aufnahme endet nach ~2,5 s Ruhe; unter dem Ergebnis „automatisch beendet – Stille“ |
+| 17 | Mit Spracherkennung: lange Rezitation abspielen (z. B. Yasin) | endet vor der Höchstdauer; „Früh erkannt nach x s“ |
+| 18 | Einstellungen → beide Automatiken aus → Aufnahme | läuft bis zur Höchstdauer |
 
 Auffälligkeiten (Darstellung, Tempo, Texte) bitte mit Nummer melden.
+
+## Hinweis zu den Pegel-Schwellen (Punkt 16)
+
+Die Stille-Erkennung nutzt feste Schwellen (Rezitation ab ≈ −27 dB, Ruhe unter ≈ −36 dB).
+Stoppt die Aufnahme zu früh (leise Wiedergabe) oder nie (laute Umgebung), bitte melden –
+die Werte lassen sich anpassen (`Core/Recording/SilenceDetector.swift`).
