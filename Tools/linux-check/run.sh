@@ -16,7 +16,13 @@ RESOURCES="${1:-$REPO/QuranRecitationFinder/Resources}"
 MODE="${2:-}"
 IMAGE="swift:6.2-noble"
 BUILD="$(mktemp -d)"
-trap 'rm -rf "$BUILD"' EXIT
+# Der Container schreibt .build als root – deshalb im Container löschen; Aufräumfehler
+# dürfen das Testergebnis nicht verändern.
+cleanup() {
+  docker run --rm -v "$BUILD:/work" "$IMAGE" rm -rf /work/.build >/dev/null 2>&1 || true
+  rm -rf "$BUILD" 2>/dev/null || true
+}
+trap cleanup EXIT
 
 [[ -f "$RESOURCES/Quran/quran-uthmani.xml" ]] || { echo "✗ Ressourcen fehlen: $RESOURCES (erst Tools/data/build_resources.py)"; exit 1; }
 
