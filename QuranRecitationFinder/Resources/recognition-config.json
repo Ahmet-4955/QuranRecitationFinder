@@ -1,0 +1,8 @@
+{
+  "acceptThreshold": 0.6,
+  "tieMargin": 0.01,
+  "minimumWordsForRecognition": 3,
+  "edition": "simpleClean",
+  "calibratedAt": null,
+  "calibrationNote": "Startwerte – noch nicht kalibriert (Tools/phase5/calibrate.py)"
+}

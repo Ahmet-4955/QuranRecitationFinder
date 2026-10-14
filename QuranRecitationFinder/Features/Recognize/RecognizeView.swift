@@ -1,0 +1,232 @@
+import SwiftUI
+
+struct RecognizeView: View {
+    let context: AppContext
+    @EnvironmentObject private var settings: AppSettings
+    @EnvironmentObject private var history: HistoryStore
+    @StateObject private var holder = ViewModelHolder()
+
+    var body: some View {
+        NavigationStack {
+            Group {
+                if let model = holder.model {
+                    RecognizeScreen(model: model, context: context)
+                } else {
+                    ProgressView()
+                }
+            }
+            .navigationTitle("Erkennen")
+        }
+        .onAppear {
+            holder.setUp(context: context, history: history, settings: settings)
+        }
+    }
+}
+
+private struct RecognizeScreen: View {
+    @ObservedObject var model: RecognitionViewModel
+    let context: AppContext
+    @EnvironmentObject private var app: AppModel
+    @State private var showTextInput = false
+
+    var body: some View {
+        ScrollView {
+            VStack(spacing: 24) {
+                RecognizerStatusBanner(status: app.recognizerStatus)
+                RecordButton(model: model)
+                    .padding(.top, 8)
+                PhaseView(model: model, context: context)
+            }
+            .padding()
+        }
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    showTextInput = true
+                } label: {
+                    Label("Text eingeben", systemImage: "character.cursor.ibeam")
+                }
+                .disabled(model.isBusy)
+            }
+        }
+        .sheet(isPresented: $showTextInput) {
+            ManualInputView { text in
+                Task { await model.recognize(text: text) }
+            }
+        }
+    }
+}
+
+/// Hält das ViewModel, sobald Kontext und Umgebung verfügbar sind.
+final class ViewModelHolder: ObservableObject {
+    @Published private(set) var model: RecognitionViewModel?
+
+    func setUp(context: AppContext, history: HistoryStore, settings: AppSettings) {
+        guard model == nil else { return }
+        model = RecognitionViewModel(capture: AudioCaptureService(), recognizer: context.recognizer,
+                                     matcher: context.matcher, history: history, settings: settings,
+                                     feedback: context.feedback)
+    }
+}
+
+private struct RecordButton: View {
+    @ObservedObject var model: RecognitionViewModel
+
+    var body: some View {
+        VStack(spacing: 12) {
+            Button {
+                Task { await model.toggleRecording() }
+            } label: {
+                ZStack {
+                    Circle()
+                        .fill(model.isRecording ? Color.red : Color.accentColor)
+                        .frame(width: 120, height: 120)
+                        .scaleEffect(model.isRecording ? 1 + CGFloat(model.level) * 0.25 : 1)
+                        .animation(.easeOut(duration: 0.1), value: model.level)
+                    Image(systemName: model.isRecording ? "stop.fill" : "mic.fill")
+                        .font(.system(size: 44, weight: .semibold))
+                        .foregroundStyle(.white)
+                }
+            }
+            .disabled(model.isProcessing)
+            .accessibilityLabel(model.isRecording ? "Aufnahme beenden" : "Aufnahme starten")
+
+            Text(model.isRecording
+                 ? String(format: "Aufnahme läuft … %.0f s", model.elapsed)
+                 : "Tippen und Rezitation abspielen oder rezitieren")
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+                .monospacedDigit()
+        }
+    }
+}
+
+private struct PhaseView: View {
+    @ObservedObject var model: RecognitionViewModel
+    let context: AppContext
+
+    var body: some View {
+        switch model.phase {
+        case .idle, .recording:
+            EmptyView()
+        case .processing:
+            ProgressView("Wird erkannt …")
+        case .failed(let message):
+            Label(message, systemImage: "exclamationmark.circle")
+                .foregroundStyle(.orange)
+                .multilineTextAlignment(.leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
+        case .finished(let recognition):
+            VStack(alignment: .leading, spacing: 20) {
+                MatchResultView(outcome: recognition.outcome, transcript: recognition.transcript,
+                                transcriptionSeconds: recognition.transcriptionSeconds, context: context)
+                FeedbackButtons(model: model)
+            }
+        }
+    }
+}
+
+/// „Stimmt / Stimmt nicht“ – fließt ins Testprotokoll für die Kalibrierung (Phase 5).
+private struct FeedbackButtons: View {
+    @ObservedObject var model: RecognitionViewModel
+    @State private var askCorrectVerse = false
+    @State private var correctRef = ""
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            switch model.verdict {
+            case .unrated:
+                Text("Stimmt das Ergebnis?")
+                    .font(.subheadline.weight(.semibold))
+                HStack(spacing: 12) {
+                    Button {
+                        model.rate(.correct)
+                    } label: {
+                        Label("Stimmt", systemImage: "hand.thumbsup")
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .tint(.green)
+                    Button {
+                        askCorrectVerse = true
+                    } label: {
+                        Label("Stimmt nicht", systemImage: "hand.thumbsdown")
+                    }
+                    .buttonStyle(.bordered)
+                    .tint(.red)
+                }
+            case .correct:
+                Label("Danke – als richtig vermerkt.", systemImage: "checkmark.circle")
+                    .foregroundStyle(.green)
+            case .wrong:
+                Label("Danke – als falsch vermerkt.", systemImage: "xmark.circle")
+                    .foregroundStyle(.red)
+            }
+        }
+        .font(.subheadline)
+        .alert("Welcher Vers war es?", isPresented: $askCorrectVerse) {
+            TextField("z. B. 2:255 (optional)", text: $correctRef)
+                .keyboardType(.numbersAndPunctuation)
+            Button("Speichern") { model.rate(.wrong, correctRef: correctRef) }
+            Button("Abbrechen", role: .cancel) {}
+        } message: {
+            Text("Hilft bei der Feinabstimmung der Erkennung.")
+        }
+    }
+}
+
+/// Hinweis, solange das Sprachmodell lädt oder fehlt.
+private struct RecognizerStatusBanner: View {
+    let status: AppModel.RecognizerStatus
+
+    var body: some View {
+        switch status {
+        case .ready:
+            EmptyView()
+        case .preparing:
+            Label("Sprachmodell wird vorbereitet – beim ersten Start bis zu einer Minute.", systemImage: "hourglass")
+                .font(.footnote)
+                .foregroundStyle(.secondary)
+        case .unavailable(let reason), .failed(let reason):
+            Label(reason, systemImage: "exclamationmark.triangle")
+                .font(.footnote)
+                .foregroundStyle(.orange)
+                .frame(maxWidth: .infinity, alignment: .leading)
+        }
+    }
+}
+
+private struct ManualInputView: View {
+    let onSubmit: (String) -> Void
+    @Environment(\.dismiss) private var dismiss
+    @State private var text = ""
+
+    var body: some View {
+        NavigationStack {
+            Form {
+                Section {
+                    TextField("z. B. قل هو الله أحد", text: $text, axis: .vertical)
+                        .lineLimit(3...8)
+                        // Rechts→links-Eingabe: dort ist .leading die rechte Seite
+                        .multilineTextAlignment(.leading)
+                        .environment(\.layoutDirection, .rightToLeft)
+                } footer: {
+                    Text("Zum Testen der Verssuche, solange die Spracherkennung (Phase 3) fehlt. Vokalzeichen sind nicht nötig.")
+                }
+            }
+            .navigationTitle("Text eingeben")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Abbrechen") { dismiss() }
+                }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Suchen") {
+                        onSubmit(text)
+                        dismiss()
+                    }
+                    .disabled(text.trimmingCharacters(in: .whitespaces).isEmpty)
+                }
+            }
+        }
+    }
+}
