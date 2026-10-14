@@ -9,8 +9,8 @@ struct HistoryView: View {
         NavigationStack {
             Group {
                 if history.entries.isEmpty {
-                    ContentUnavailableView("Noch keine Erkennungen", systemImage: "clock",
-                                           description: Text("Erkannte Verse erscheinen hier."))
+                    ContentUnavailableView("No recognitions yet", systemImage: "clock",
+                                           description: Text("Recognized verses appear here."))
                 } else {
                     List {
                         ForEach(history.entries) { entry in
@@ -24,16 +24,16 @@ struct HistoryView: View {
                     }
                 }
             }
-            .navigationTitle("Verlauf")
+            .navigationTitle("History")
             .toolbar {
                 if !history.entries.isEmpty {
                     ToolbarItem(placement: .topBarTrailing) {
-                        Button("Leeren", role: .destructive) { confirmClear = true }
+                        Button("Clear", role: .destructive) { confirmClear = true }
                     }
                 }
             }
-            .confirmationDialog("Gesamten Verlauf löschen?", isPresented: $confirmClear, titleVisibility: .visible) {
-                Button("Verlauf löschen", role: .destructive) { history.removeAll() }
+            .confirmationDialog("Delete the entire history?", isPresented: $confirmClear, titleVisibility: .visible) {
+                Button("Delete history", role: .destructive) { history.removeAll() }
             }
         }
     }
@@ -50,7 +50,7 @@ private struct HistoryRow: View {
             HStack {
                 Text(entry.date, format: .dateTime.day().month().year().hour().minute())
                 Spacer()
-                Text("\(Int((entry.score * 100).rounded())) %")
+                Text(UIFormat.percent(entry.score))
                     .monospacedDigit()
             }
             .font(.caption)
@@ -69,7 +69,7 @@ private struct HistoryDetailView: View {
                 VersePassageView(range: entry.range, context: context)
                 if !entry.alternatives.isEmpty {
                     VStack(alignment: .leading, spacing: 6) {
-                        Text("Gleicher Wortlaut auch in:")
+                        Text("Same wording also in:")
                             .font(.subheadline.weight(.semibold))
                         ForEach(entry.alternatives, id: \.self) { range in
                             Text(PassageTitle.text(for: range, quran: context.library.text))
@@ -78,7 +78,7 @@ private struct HistoryDetailView: View {
                     }
                 }
                 VStack(alignment: .leading, spacing: 6) {
-                    Text("Erkannter Text")
+                    Text("Recognized text")
                         .font(.footnote.weight(.semibold))
                     ArabicText(entry.transcript, size: 18)
                         .foregroundStyle(.secondary)

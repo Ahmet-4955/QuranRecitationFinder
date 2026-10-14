@@ -28,15 +28,16 @@ nonisolated struct QuranText: Sendable {
 
     init(surahs: [SurahInfo], uthmani: [[String]], simpleClean: [[String]]) throws {
         guard surahs.count == Self.surahCount else {
-            throw TanzilParser.ParseError.incomplete("\(surahs.count) Suren in den Metadaten")
+            throw TanzilParser.ParseError.incomplete(String(format: NSLocalizedString("%@ surahs in the metadata", comment: ""), String(surahs.count)))
         }
         for (name, text) in [("uthmani", uthmani), ("simple-clean", simpleClean)] {
             guard text.count == Self.surahCount else {
-                throw TanzilParser.ParseError.incomplete("\(name): \(text.count) Suren")
+                throw TanzilParser.ParseError.incomplete(String(format: NSLocalizedString("%1$@: %2$@ surahs", comment: ""), name, String(text.count)))
             }
             for (i, info) in surahs.enumerated() where text[i].count != info.ayahCount {
-                throw TanzilParser.ParseError.incomplete(
-                    "\(name): Sure \(info.number) hat \(text[i].count) statt \(info.ayahCount) Verse")
+                throw TanzilParser.ParseError.incomplete(String(
+                    format: NSLocalizedString("%1$@: surah %2$@ has %3$@ instead of %4$@ verses", comment: ""),
+                    name, String(info.number), String(text[i].count), String(info.ayahCount)))
             }
         }
         self.surahs = surahs
@@ -48,7 +49,7 @@ nonisolated struct QuranText: Sendable {
             return running
         }
         guard running == Self.verseCount else {
-            throw TanzilParser.ParseError.incomplete("\(running) Verse statt \(Self.verseCount)")
+            throw TanzilParser.ParseError.incomplete(String(format: NSLocalizedString("%1$@ verses instead of %2$@", comment: ""), String(running), String(Self.verseCount)))
         }
     }
 
@@ -109,7 +110,7 @@ nonisolated enum ResourceLocator {
     nonisolated struct NotFound: LocalizedError {
         let name: String
         var errorDescription: String? {
-            "Ressource fehlt im App-Bundle: \(name) – Tools/data/build_resources.py ausführen."
+            String(format: NSLocalizedString("Resource missing from the app bundle: %@ – run Tools/data/build_resources.py.", comment: ""), name)
         }
     }
 

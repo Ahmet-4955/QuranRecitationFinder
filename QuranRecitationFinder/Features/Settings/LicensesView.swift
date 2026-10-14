@@ -7,17 +7,17 @@ struct LicensesView: View {
     var body: some View {
         List {
             Section {
-                Text("Korantext: Tanzil Quran Text (Uthmani und Simple Clean), Copyright © Tanzil.net. Lizenz: Creative Commons Attribution 3.0. Der Text wird unverändert verwendet.")
-                Link("tanzil.net", destination: URL(string: "https://tanzil.net")!)
+                Text("Quran text: Tanzil Quran Text (Uthmani and Simple Clean), copyright © Tanzil.net. License: Creative Commons Attribution 3.0. The text is used unchanged.")
+                Link(destination: URL(string: "https://tanzil.net")!) { Text(verbatim: "tanzil.net") }
             } header: {
-                Text("Korantext")
+                Text("Quran text")
             }
 
             Section {
                 ForEach(context.library.translations.available) { info in
                     VStack(alignment: .leading, spacing: 4) {
                         Text(info.title)
-                        Text("Quelle: \(info.source) · Version \(info.version)")
+                        Text(String(format: NSLocalizedString("Source: %1$@ · version %2$@", comment: ""), info.source, info.version))
                             .font(.caption)
                             .foregroundStyle(.secondary)
                         if let url = URL(string: info.sourceURL) {
@@ -27,22 +27,22 @@ struct LicensesView: View {
                     }
                 }
             } header: {
-                Text("Übersetzungen")
+                Text("Translations")
             } footer: {
-                Text("Die Übersetzungen werden unverändert von QuranEnc.com übernommen. Hinweise zu Übersetzungen bitte an QuranEnc.com melden.")
+                Text("The translations are taken unchanged from QuranEnc.com. Please report remarks on translations to QuranEnc.com.")
             }
 
             Section {
-                Text("Spracherkennung: \(context.recognizer.displayName)")
+                Text(String(format: NSLocalizedString("Speech recognition: %@", comment: ""), context.recognizer.displayName))
                 ForEach(context.recognizer.credits, id: \.self) { line in
                     Text(line)
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                 }
             } header: {
-                Text("Spracherkennung")
+                Text("Speech recognition")
             }
         }
-        .navigationTitle("Quellen & Lizenzen")
+        .navigationTitle("Sources & licenses")
     }
 }

@@ -14,7 +14,7 @@ nonisolated struct TranslationInfo: Codable, Hashable, Sendable, Identifiable {
     var id: String { key }
 
     /// Quellenangabe nach QuranEnc-Bedingungen (Quelle + Version).
-    var attribution: String { "\(title) – \(source), Version \(version)" }
+    var attribution: String { String(format: NSLocalizedString("%1$@ – %2$@, version %3$@", comment: ""), title, source, version) }
 }
 
 /// Eine vollständige Übersetzung (6.236 Verse), Inhalt unverändert von QuranEnc.
@@ -39,9 +39,9 @@ nonisolated struct Translation: Sendable {
         var errorDescription: String? {
             switch self {
             case .incomplete(let key, let count):
-                return "Übersetzung \(key) unvollständig: \(count) statt \(QuranText.verseCount) Verse"
+                return String(format: NSLocalizedString("Translation %1$@ incomplete: %2$@ instead of %3$@ verses", comment: ""), key, String(count), String(QuranText.verseCount))
             case .keyMismatch(let expected, let found):
-                return "Übersetzungsdatei passt nicht: erwartet \(expected), gefunden \(found)"
+                return String(format: NSLocalizedString("Translation file does not match: expected %1$@, found %2$@", comment: ""), expected, found)
             }
         }
     }
@@ -107,7 +107,7 @@ nonisolated final class TranslationStore: @unchecked Sendable {
         defer { lock.unlock() }
         if let cached = cache[key] { return cached }
         guard let info = info(forKey: key) else {
-            throw ResourceLocator.NotFound(name: "Übersetzung \(key)")
+            throw ResourceLocator.NotFound(name: String(format: NSLocalizedString("Translation %@", comment: ""), key))
         }
         let url = try ResourceLocator.url(for: info.file, in: bundle)
         let translation = try Translation(info: info, data: Data(contentsOf: url))

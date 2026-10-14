@@ -17,10 +17,11 @@ struct SurahReaderView: View {
                     Section {
                         VStack(alignment: .leading, spacing: 4) {
                             Text(surah.arabicName).font(.title2)
-                            Text("\(surah.number). \(surah.transliteratedName) · \(surah.englishName)")
+                            Text(verbatim: "\(surah.number). \(surah.transliteratedName) · \(surah.englishName)")
                                 .font(.subheadline)
                                 .foregroundStyle(.secondary)
-                            Text("\(surah.ayahCount) Verse · \(surah.revelation == .meccan ? "mekkanisch" : "medinensisch")")
+                            Text(String(format: NSLocalizedString("%1$@ verses · %2$@", comment: ""), String(surah.ayahCount),
+                                        surah.revelation == .meccan ? NSLocalizedString("Meccan", comment: "") : NSLocalizedString("Medinan", comment: "")))
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
@@ -44,7 +45,7 @@ struct SurahReaderView: View {
                 }
             }
         }
-        .navigationTitle(surah?.transliteratedName ?? "Sure \(surahNumber)")
+        .navigationTitle(surah?.transliteratedName ?? String(format: NSLocalizedString("Surah %@", comment: ""), String(surahNumber)))
         .navigationBarTitleDisplayMode(.inline)
     }
 }

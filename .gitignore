@@ -1,3 +1,4 @@
 # Phase 3: umgewandeltes Whisper-Modell (groß, lokal erzeugt) und Arbeitsdateien
 Models/WhisperModel/
 Tools/model/work/
+__pycache__/

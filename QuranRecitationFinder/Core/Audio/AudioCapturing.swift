@@ -27,11 +27,11 @@ nonisolated enum AudioCaptureError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .permissionDenied:
-            return "Kein Mikrofonzugriff. Bitte in Einstellungen → Datenschutz → Mikrofon erlauben."
+            return NSLocalizedString("No microphone access. Please allow it in Settings → Privacy & Security → Microphone.", comment: "")
         case .formatUnavailable:
-            return "Das Mikrofon liefert kein nutzbares Audioformat."
+            return NSLocalizedString("The microphone does not provide a usable audio format.", comment: "")
         case .engineFailed(let error):
-            return "Aufnahme konnte nicht gestartet werden: \(error.localizedDescription)"
+            return String(format: NSLocalizedString("Recording could not be started: %@", comment: ""), error.localizedDescription)
         }
     }
 }

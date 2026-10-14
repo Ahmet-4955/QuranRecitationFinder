@@ -144,7 +144,7 @@ Kompletter Weg zur laufenden App: [`docs/INBETRIEBNAHME.md`](INBETRIEBNAHME.md).
 | Kommerzielle Veröffentlichung | ✅ Checkliste: `docs/VEROEFFENTLICHUNG.md` |
 | Referenzrezitation abspielen | offen – Audio-Lizenz klären, braucht Internet |
 | Tafsir / weitere Sprachen | offen – QuranEnc bietet viele Übersetzungen; Sprachliste dafür flexibel machen |
-| Oberfläche mehrsprachig (TR/EN) | offen – String Catalog |
+| Oberfläche mehrsprachig (DE/TR/EN) | ✅ vorbereitet: String Catalog (`Localizable.xcstrings`, `InfoPlist.xcstrings`), englische Schlüssel, DE/TR vollständig; Prüfung `Tools/l10n/check_strings.py` in der CI. **Offen:** türkische Texte von Muttersprachler gegenlesen, Gerätetest Punkte 19–21 |
 
 ## Umgang mit dem bestehenden Code
 
@@ -161,6 +161,7 @@ Kompletter Weg zur laufenden App: [`docs/INBETRIEBNAHME.md`](INBETRIEBNAHME.md).
 | 13.10.2026 | Vorerst privat, später ggf. kommerziell → nur kommerziell nutzbare Lizenzen. **Variante A (Tarteel Whisper, Apache 2.0)**; Variante B (NPL, nicht kommerziell) entfällt. |
 | 13.10.2026 | Übersetzungen zum Start: **Deutsch, Türkisch, Englisch** |
 | 13.10.2026 | Mindestversion **iOS 17** |
+| 14.10.2026 | Oberfläche folgt der iPhone-Sprache (DE/TR/EN, Rückfall Englisch); unabhängig davon wählbare Übersetzungssprache |
 | offen | Modellgröße tiny vs. base → entscheidet Phase 0 (`Tools/phase0/`) |
 
 ## Risiken

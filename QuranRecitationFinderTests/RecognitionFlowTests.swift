@@ -214,7 +214,7 @@ struct RecognitionFlowTests {
             Issue.record("erwartet: Fehler")
             return
         }
-        #expect(message.contains("Phase 3"))
+        #expect(message == RecognitionError.notAvailable(UnavailableRecognizer().reason).localizedDescription)
     }
 
     @Test func recordingStopsAutomaticallyAtMaximum() async throws {

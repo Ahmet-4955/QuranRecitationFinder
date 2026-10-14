@@ -15,6 +15,6 @@
     <key>LSRequiresIPhoneOS</key>
     <true/>
     <key>NSMicrophoneUsageDescription</key>
-    <string>Die App nimmt einen kurzen Ausschnitt der Rezitation auf, um den Koranvers zu erkennen. Die Aufnahme bleibt auf dem Gerät.</string>
+    <string>The app records a short excerpt of the recitation to recognize the Quran verse. The recording stays on the device.</string>
 </dict>
 </plist>

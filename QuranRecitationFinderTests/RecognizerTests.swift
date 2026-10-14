@@ -55,7 +55,11 @@ struct RecognizerFactoryTests {
         let recognizer = RecognizerFactory.make(bundle: Bundle(for: BundleToken.self))
         // Test-Bundle enthält nie ein Modell → immer Platzhalter mit Begründung
         let placeholder = try #require(recognizer as? UnavailableRecognizer)
-        #expect(placeholder.reason.contains(RecognizerFactory.isWhisperKitLinked ? "Modellordner" : "WhisperKit"))
+        // Vergleich mit dem Fehlertext selbst – unabhängig von der Gerätesprache
+        let expected = RecognizerFactory.isWhisperKitLinked
+            ? WhisperModelLocator.LookupError.folderMissing.localizedDescription
+            : NSLocalizedString("The Swift package WhisperKit is not linked yet (Tools/model/README.md, step 4).", comment: "")
+        #expect(placeholder.reason == expected)
         await #expect(throws: RecognitionError.self) {
             _ = try await recognizer.transcribe(samples: [], sampleRate: 16_000)
         }

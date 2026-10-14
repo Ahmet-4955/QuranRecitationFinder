@@ -12,9 +12,9 @@ nonisolated enum TanzilParser {
         var errorDescription: String? {
             switch self {
             case .unreadable(let url, let error):
-                return "Tanzil-Datei nicht lesbar: \(url.lastPathComponent) \(error?.localizedDescription ?? "")"
+                return String(format: NSLocalizedString("Tanzil file not readable: %1$@ %2$@", comment: ""), url.lastPathComponent, error?.localizedDescription ?? "")
             case .incomplete(let detail):
-                return "Tanzil-Daten unvollständig: \(detail)"
+                return String(format: NSLocalizedString("Tanzil data incomplete: %@", comment: ""), detail)
             }
         }
     }

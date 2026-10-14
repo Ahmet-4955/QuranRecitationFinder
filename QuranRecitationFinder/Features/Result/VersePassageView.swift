@@ -4,7 +4,7 @@ import SwiftUI
 enum PassageTitle {
     static func text(for range: VerseRange, quran: QuranText) -> String {
         let start = quran.surah(range.start.surah)
-        var title = start.map { "\($0.number). \($0.transliteratedName)" } ?? "Sure \(range.start.surah)"
+        var title = start.map { "\($0.number). \($0.transliteratedName)" } ?? String(format: NSLocalizedString("Surah %@", comment: ""), String(range.start.surah))
         if range.end.surah != range.start.surah, let end = quran.surah(range.end.surah) {
             title += " – \(end.number). \(end.transliteratedName)"
         }
@@ -53,7 +53,7 @@ struct VersePassageView: View {
                 Text(PassageTitle.text(for: range, quran: quran))
                     .font(.title3.weight(.semibold))
                 if let surah = quran.surah(range.start.surah) {
-                    Text("\(surah.arabicName) · \(surah.englishName)")
+                    Text(verbatim: "\(surah.arabicName) · \(surah.englishName)")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                 }
@@ -64,26 +64,26 @@ struct VersePassageView: View {
                 Divider()
             }
             if verses.count > Self.maxVerses {
-                Text("… \(verses.count - Self.maxVerses) weitere Verse")
+                Text(String(format: NSLocalizedString("… %@ more verses", comment: ""), String(verses.count - Self.maxVerses)))
                     .font(.footnote)
                     .foregroundStyle(.secondary)
             }
 
             if let info {
-                Text("Übersetzung: \(info.attribution)")
+                Text(String(format: NSLocalizedString("Translation: %@", comment: ""), info.attribution))
                     .font(.caption2)
                     .foregroundStyle(.secondary)
             }
 
             HStack(spacing: 12) {
                 ShareLink(item: shareText(info: info)) {
-                    Label("Teilen", systemImage: "square.and.arrow.up")
+                    Label("Share", systemImage: "square.and.arrow.up")
                 }
                 if showsReaderLink {
                     NavigationLink {
                         SurahReaderView(surahNumber: range.start.surah, highlight: range, context: context)
                     } label: {
-                        Label("Ganze Sure lesen", systemImage: "book")
+                        Label("Read whole surah", systemImage: "book")
                     }
                 }
             }
@@ -115,7 +115,7 @@ struct VerseRow: View {
 
         VStack(alignment: .leading, spacing: 10) {
             HStack(alignment: .top, spacing: 8) {
-                Text("\(verse.ayah)")
+                Text(verbatim: "\(verse.ayah)")
                     .font(.caption.weight(.bold))
                     .foregroundStyle(.white)
                     .frame(minWidth: 26, minHeight: 26)
@@ -127,12 +127,12 @@ struct VerseRow: View {
                     .font(.body)
                     .textSelection(.enabled)
             } else {
-                Text("Keine Übersetzung verfügbar")
+                Text("No translation available")
                     .font(.footnote)
                     .foregroundStyle(.secondary)
             }
             if let notes = translation?.footnotes(for: verse) {
-                DisclosureGroup("Fußnoten", isExpanded: $showFootnotes) {
+                DisclosureGroup("Footnotes", isExpanded: $showFootnotes) {
                     Text(notes)
                         .font(.footnote)
                         .foregroundStyle(.secondary)

@@ -26,11 +26,11 @@ nonisolated enum WhisperModelLocator {
         var errorDescription: String? {
             switch self {
             case .folderMissing:
-                return "Modellordner „\(WhisperModelLocator.folderName)“ ist nicht in der App (Tools/model/README.md, Schritt 3)."
+                return String(format: NSLocalizedString("Model folder “%@” is not in the app (Tools/model/README.md, step 3).", comment: ""), WhisperModelLocator.folderName)
             case .incomplete(let missing):
-                return "Modellordner unvollständig, es fehlt: \(missing.joined(separator: ", "))."
+                return String(format: NSLocalizedString("Model folder incomplete, missing: %@.", comment: ""), missing.joined(separator: ", "))
             case .invalidInfo:
-                return "model-info.json ist nicht lesbar."
+                return NSLocalizedString("model-info.json is not readable.", comment: "")
             }
         }
     }
