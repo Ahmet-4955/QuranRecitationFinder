@@ -1,0 +1,34 @@
+{
+  "translations": [
+    {
+      "key": "german_bubenheim",
+      "language": "de",
+      "title": "German Translation - Frank Bubenheim",
+      "version": "1.1.4",
+      "direction": "ltr",
+      "source": "QuranEnc.com",
+      "sourceURL": "https://quranenc.com/en/browse/german_bubenheim",
+      "file": "translation-german_bubenheim.json"
+    },
+    {
+      "key": "turkish_rwwad",
+      "language": "tr",
+      "title": "Turkish Translation - Rowwad Translation Center",
+      "version": "1.0.4",
+      "direction": "ltr",
+      "source": "QuranEnc.com",
+      "sourceURL": "https://quranenc.com/en/browse/turkish_rwwad",
+      "file": "translation-turkish_rwwad.json"
+    },
+    {
+      "key": "english_saheeh",
+      "language": "en",
+      "title": "English Translation - Noor International Center",
+      "version": "1.1.2",
+      "direction": "ltr",
+      "source": "QuranEnc.com",
+      "sourceURL": "https://quranenc.com/en/browse/english_saheeh",
+      "file": "translation-english_saheeh.json"
+    }
+  ]
+}
