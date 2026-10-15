@@ -1,0 +1,84 @@
+{
+  "name": "asm-claude-mods",
+  "owner": {
+    "name": "Ahmet Uzun"
+  },
+  "metadata": {
+    "description": "Sammlung der Claude-Code-Mods aus dem Video 'Diese 10 Claude Code Mods solltest du unbedingt kennen' (Julian Ivanov). Jeder Eintrag zeigt auf das Original-Repo des Autors, hier wird kein fremder Code kopiert."
+  },
+  "plugins": [
+    {
+      "name": "savvy-progress",
+      "description": "Mod 1 · Fortschrittsbalken über dem Prompt und Live-Panel der Subagenten (/agents-info).",
+      "source": {
+        "source": "git-subdir",
+        "url": "JohnnyVizz/claude-kit",
+        "path": "plugins/savvy-progress"
+      }
+    },
+    {
+      "name": "next-steps",
+      "description": "Mod 2 · Nach jeder Antwort 2-3 wahrscheinliche nächste Prompts, per 1/2/3 übernehmen.",
+      "source": {
+        "source": "git-subdir",
+        "url": "hamzafer/claude-code-mods",
+        "path": "mods/next-steps"
+      }
+    },
+    {
+      "name": "filetree",
+      "description": "Mod 3 · IDE-artiger Dateibaum in der Seitenleiste, zeigt, wo Claude gerade liest und schreibt.",
+      "source": {
+        "source": "github",
+        "repo": "data-goblin/claude-code-filetree"
+      }
+    },
+    {
+      "name": "cache-meter",
+      "description": "Mod 4 · Eigenbau: Band über dem Prompt mit Cache-Read/-Write/ungecacht, Trefferquote und Countdown bis der Prompt-Cache kalt wird. /cache-meter blendet ein/aus.",
+      "source": "./plugins/cache-meter"
+    },
+    {
+      "name": "cache-tax",
+      "description": "Mod 5 · Hält den 1-Stunden-Prompt-Cache warm (/keepwarm) und stoppt einen kalten Send mit Kostenschätzung.",
+      "source": {
+        "source": "github",
+        "repo": "karanb192/cache-tax"
+      }
+    },
+    {
+      "name": "visible-compact",
+      "description": "Mod 6 · Zeigt den Verlauf vor und nach /compact nebeneinander; /show-last-compact öffnet ihn erneut.",
+      "source": {
+        "source": "github",
+        "repo": "nvsravank/visible-compact"
+      }
+    },
+    {
+      "name": "catch-me-up",
+      "description": "Mod 8 · Seitenleiste mit laufender Zusammenfassung: warum, was erledigt ist, wo es steht, was dich braucht.",
+      "source": {
+        "source": "github",
+        "repo": "oliverow/catch-me-up"
+      }
+    },
+    {
+      "name": "replay-theater",
+      "description": "Mod 9 (Anthropic) · /replay geht die Datei-Änderungen der letzten Runde Diff für Diff durch.",
+      "source": {
+        "source": "git-subdir",
+        "url": "anthropics/claude-code-playground",
+        "path": "claude-code/mods/replay-theater"
+      }
+    },
+    {
+      "name": "blast-radius",
+      "description": "Mod 10 (Anthropic) · Hält riskante Befehle (rm -rf, force push, reset --hard) an und zeigt die Folgen, mit Proceed/Cancel.",
+      "source": {
+        "source": "git-subdir",
+        "url": "anthropics/claude-code-playground",
+        "path": "claude-code/mods/blast-radius"
+      }
+    }
+  ]
+}
