@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		22258E3327247EEAECA67739 /* WhisperModel in Resources */ = {isa = PBXBuildFile; fileRef = 186FAB5E7B9D3D92CDADC891 /* WhisperModel */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		914CD59D2F89A30600BC8CC1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,6 +31,7 @@
 		914CD58F2F89A30500BC8CC1 /* QuranRecitationFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuranRecitationFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		914CD59C2F89A30600BC8CC1 /* QuranRecitationFinderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuranRecitationFinderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		914CD5A62F89A30600BC8CC1 /* QuranRecitationFinderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuranRecitationFinderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		186FAB5E7B9D3D92CDADC891 /* WhisperModel */ = {isa = PBXFileReference; lastKnownFileType = folder; name = WhisperModel; path = Models/WhisperModel; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -75,6 +80,7 @@
 		914CD5862F89A30500BC8CC1 = {
 			isa = PBXGroup;
 			children = (
+				186FAB5E7B9D3D92CDADC891 /* WhisperModel */,
 				914CD5912F89A30500BC8CC1 /* QuranRecitationFinder */,
 				914CD59F2F89A30600BC8CC1 /* QuranRecitationFinderTests */,
 				914CD5A92F89A30600BC8CC1 /* QuranRecitationFinderUITests */,
@@ -112,6 +118,7 @@
 			);
 			name = QuranRecitationFinder;
 			packageProductDependencies = (
+				392B94B8FAEAFFBCC3120B9F /* WhisperKit */,
 			);
 			productName = QuranRecitationFinder;
 			productReference = 914CD58F2F89A30500BC8CC1 /* QuranRecitationFinder.app */;
@@ -196,6 +203,9 @@
 				tr,
 			);
 			mainGroup = 914CD5862F89A30500BC8CC1;
+			packageReferences = (
+				E421E0E9DC4749A68950D6A8 /* XCRemoteSwiftPackageReference "argmax-oss-swift" */,
+			);
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 914CD5902F89A30500BC8CC1 /* Products */;
@@ -214,6 +224,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22258E3327247EEAECA67739 /* WhisperModel in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,6 +280,18 @@
 			targetProxy = 914CD5A72F89A30600BC8CC1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E421E0E9DC4749A68950D6A8 /* XCRemoteSwiftPackageReference "argmax-oss-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/argmaxinc/argmax-oss-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCBuildConfiguration section */
 		914CD5AE2F89A30600BC8CC1 /* Debug */ = {
@@ -535,6 +558,15 @@
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
+
+
+/* Begin XCSwiftPackageProductDependency section */
+		392B94B8FAEAFFBCC3120B9F /* WhisperKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E421E0E9DC4749A68950D6A8 /* XCRemoteSwiftPackageReference "argmax-oss-swift" */;
+			productName = WhisperKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCConfigurationList section */
 		914CD58A2F89A30500BC8CC1 /* Build configuration list for PBXProject "QuranRecitationFinder" */ = {
